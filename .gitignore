@@ -58,3 +58,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# User-specific settings
+[Uu]ser[Ss]ettings/
+
