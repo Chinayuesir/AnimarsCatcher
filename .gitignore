@@ -61,3 +61,7 @@ crashlytics-build.properties
 # User-specific settings
 [Uu]ser[Ss]ettings/
 
+.idea/.idea.AnimarsCatcher/.idea/.gitignore
+.idea/.idea.AnimarsCatcher/.idea/encodings.xml
+.idea/.idea.AnimarsCatcher/.idea/indexLayout.xml
+.idea/.idea.AnimarsCatcher/.idea/vcs.xml
