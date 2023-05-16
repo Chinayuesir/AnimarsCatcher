@@ -24,14 +24,18 @@ namespace AnimarsCatcher
 
         //Components
         private Rigidbody mRigidbody;
+        private Animator mAnimator;
         
         //MainCamera
         private Camera mMainCamera;
-        
+
+
+        private static readonly int MoveVec = Animator.StringToHash("MoveVec");
 
         private void Awake()
         {
             mRigidbody = GetComponent<Rigidbody>();
+            mAnimator = GetComponent<Animator>();
             mMainCamera=Camera.main;
         }
 
@@ -80,6 +84,9 @@ namespace AnimarsCatcher
                 transform.forward = Vector3.Lerp(transform.forward, targetDirection, 10f * Time.deltaTime);
             var speed = targetDirection * MoveSpeed;
             mRigidbody.velocity = speed;
+
+            // process animation
+            mAnimator.SetFloat(MoveVec, h * h + v * v);
         }
 
         private void GetControlAnis()

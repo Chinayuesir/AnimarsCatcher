@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PICKER_Ani
   - BLASTER_Ani
+  - CanCarry
   layers:
   - Default
   - TransparentFX
