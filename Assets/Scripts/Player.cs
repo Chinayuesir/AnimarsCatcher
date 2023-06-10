@@ -83,7 +83,9 @@ namespace AnimarsCatcher
             if (targetDirection != Vector3.zero)
                 transform.forward = Vector3.Lerp(transform.forward, targetDirection, 10f * Time.deltaTime);
             var speed = targetDirection * MoveSpeed;
-            mRigidbody.velocity = speed;
+            mRigidbody.AddForce(Vector3.down * 30);
+            mRigidbody.velocity = new Vector3(speed.x, mRigidbody.velocity.y, speed.z);
+            
 
             // process animation
             mAnimator.SetFloat(MoveVec, h * h + v * v);
