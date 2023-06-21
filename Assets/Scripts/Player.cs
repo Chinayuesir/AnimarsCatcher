@@ -24,6 +24,7 @@ namespace AnimarsCatcher
 
         //Components
         private Rigidbody mRigidbody;
+        private CharacterController mCharacterController;
         
         //MainCamera
         private Camera mMainCamera;
@@ -32,13 +33,13 @@ namespace AnimarsCatcher
         private void Awake()
         {
             mRigidbody = GetComponent<Rigidbody>();
+            mCharacterController = GetComponent<CharacterController>();
             mMainCamera=Camera.main;
         }
 
         // Update is called once per frame
         void Update()
         {
-            RobotMove();
             if (Input.GetMouseButton(1))
             {
                 mRightMouseButton = true;
@@ -68,6 +69,11 @@ namespace AnimarsCatcher
                 Time.deltaTime * 10f);
         }
 
+        private void FixedUpdate()
+        {
+            RobotMove();
+        }
+
         private void RobotMove()
         {
             float h = Input.GetAxis("Horizontal");
@@ -79,7 +85,8 @@ namespace AnimarsCatcher
             if (targetDirection != Vector3.zero)
                 transform.forward = Vector3.Lerp(transform.forward, targetDirection, 10f * Time.deltaTime);
             var speed = targetDirection * MoveSpeed;
-            mRigidbody.velocity = speed;
+            //mRigidbody.velocity = speed;
+            mCharacterController.SimpleMove(speed);
         }
 
         private void GetControlAnis()
