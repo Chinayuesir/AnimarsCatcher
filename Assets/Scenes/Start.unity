@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5507811, g: 0.32924697, b: 0.40321508, a: 1}
+  m_IndirectSpecularColor: {r: 0.5505907, g: 0.32915235, b: 0.40306932, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 89a6e079146521b4f9cbb6662ae02b3e,
+  m_LightingDataAsset: {fileID: 112000000, guid: 7a76b1a9d263ebb44819a76e59de9eab,
     type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 0af35a75a6ec4e54390abf90fcd7cd91,
     type: 2}
@@ -693,8 +693,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.04795824, y: 0.7423666, z: -0.053446546, w: 0.6661346}
-  m_LocalPosition: {x: 47.791866, y: 3.8575406, z: 50.24636}
+  m_LocalRotation: {x: 0.11815469, y: 0.30662417, z: -0.038390957, w: 0.94368815}
+  m_LocalPosition: {x: 49.6, y: 9.6, z: 19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1644,7 +1644,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684893197}
-  m_LocalRotation: {x: 0.04795824, y: 0.7423666, z: -0.053446546, w: 0.6661346}
+  m_LocalRotation: {x: 0.11815469, y: 0.30662417, z: -0.038390957, w: 0.94368815}
   m_LocalPosition: {x: 42.052753, y: 28.97236, z: 21.775494}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3955,7 +3955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 364622768}
-  m_PathPosition: 6
+  m_PathPosition: 0
   m_PositionUnits: 0
   m_PathOffset: {x: 0, y: 0, z: 0}
   m_XDamping: 0
@@ -6803,12 +6803,13 @@ PlayableDirector:
     value: {fileID: 1254195600}
   - key: {fileID: -6736132002246943379, guid: bfb149599d3770344b12c097a04bf280, type: 2}
     value: {fileID: 330585549}
-  - key: {fileID: 258924809524449158, guid: bfb149599d3770344b12c097a04bf280, type: 2}
+  - key: {fileID: -2620740834698634498, guid: bfb149599d3770344b12c097a04bf280, type: 2}
     value: {fileID: 2127631392}
   m_ExposedReferences:
     m_References:
     - cad8fd746feba43418a27ffbd75d576a: {fileID: 274690882}
     - 84fa476dd87f39445ab95c7788d391be: {fileID: 1375114910}
+    - d852b0e160103a445a8597691e6ccb9f: {fileID: 330585545}
     - 0f1d61969efdd5647a9243167d2214cc: {fileID: 1889412021}
     - 5dde7b57aeabcf64188a163e6cb5603f: {fileID: 0}
     - 7542ade4cbf1af443a7bd1d43a32f5c9: {fileID: 0}
