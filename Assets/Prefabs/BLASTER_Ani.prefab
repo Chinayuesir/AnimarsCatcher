@@ -9105,7 +9105,7 @@ Transform:
   - {fileID: 5808535170519233412}
   - {fileID: 4495061747606160776}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8679497521785161202
 Animator:
@@ -9167,7 +9167,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!136 &5001182136528572341
 CapsuleCollider:
@@ -9189,9 +9189,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.7206892
-  m_Height: 4.3139844
+  m_Height: 4
   m_Direction: 1
-  m_Center: {x: 0, y: 1.9696081, z: 0}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1 &8575857133402162599
 GameObject:
   m_ObjectHideFlags: 0
