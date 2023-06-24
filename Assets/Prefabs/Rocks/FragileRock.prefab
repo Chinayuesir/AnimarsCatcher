@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2030501566076291707}
   - component: {fileID: 3890352398066934746}
   - component: {fileID: 5815462419739850618}
+  - component: {fileID: 6730530875056478456}
   m_Layer: 0
   m_Name: FragileRock
   m_TagString: Untagged
@@ -106,3 +107,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8203819389299995764, guid: 4faae203a90f361488e8e83874085e4b, type: 3}
+--- !u!208 &6730530875056478456
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5590327608077267324}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 12.991, y: 6.4150004, z: 10.540001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.53400004, y: 5.827, z: 0.272}
+  m_TimeToStationary: 0.5

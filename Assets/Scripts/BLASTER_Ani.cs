@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace AnimarsCatcher
 {
@@ -11,6 +12,8 @@ namespace AnimarsCatcher
         public Transform RightHandIKTrans;
         
         private Animator mAnimator;
+        private NavMeshAgent mAgent;
+        
         private bool mCanMove;
         private Vector3 mTargetPos;
         private float mAniSpeed = 5f;
@@ -19,6 +22,7 @@ namespace AnimarsCatcher
         private void Awake()
         {
             mAnimator = GetComponent<Animator>();
+            mAgent = GetComponent<NavMeshAgent>();
         }
 
         private void Update()
@@ -26,12 +30,8 @@ namespace AnimarsCatcher
             if (mCanMove)
             {
                 mAnimator.SetFloat(AniSpeed,mAniSpeed);
-                float step = mAniSpeed * Time.deltaTime;
-                transform.position = Vector3.MoveTowards(transform.position, mTargetPos, step);
-
-                var dir = (mTargetPos - transform.position).normalized;
-                transform.forward = dir;
-
+                mAgent.SetDestination(mTargetPos);
+                
                 if (Vector3.Distance(transform.position, mTargetPos) < 1f)
                 {
                     mCanMove = false;
@@ -44,6 +44,11 @@ namespace AnimarsCatcher
         {
             mCanMove = true;
             mTargetPos = targetPos;
+            if (!mAgent.SetDestination(mTargetPos))
+            {
+                mCanMove = false;
+                mAnimator.SetFloat(AniSpeed,0);
+            }
         }
 
         private void OnAnimatorIK(int layerIndex)
