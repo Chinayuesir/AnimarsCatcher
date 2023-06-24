@@ -43,11 +43,6 @@ namespace AnimarsCatcher
         {
             mCanMove = true;
             mTargetPos = targetPos;
-            if (!mAgent.SetDestination(mTargetPos))
-            {
-                mCanMove = false;
-                mAnimator.SetFloat(AniSpeed,0);
-            }
         }
     }
 }
