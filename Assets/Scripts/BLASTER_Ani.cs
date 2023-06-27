@@ -32,7 +32,7 @@ namespace AnimarsCatcher
                 mAnimator.SetFloat(AniSpeed,mAniSpeed);
                 mAgent.SetDestination(mTargetPos);
                 
-                if (Vector3.Distance(transform.position, mTargetPos) < 1f)
+                if (Vector3.Distance(transform.position, mTargetPos) < mAgent.stoppingDistance)
                 {
                     mCanMove = false;
                     mAnimator.SetFloat(AniSpeed,0);

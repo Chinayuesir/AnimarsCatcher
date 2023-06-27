@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PICKER_Ani
   - BLASTER_Ani
+  - Plane
   layers:
   - Default
   - TransparentFX
@@ -13,8 +14,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Player
+  - Ani
   - 
   - 
   - 
