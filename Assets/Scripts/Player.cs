@@ -56,7 +56,7 @@ namespace AnimarsCatcher
                 var targetPos = GetMouseWorldPos();
                 foreach (var pickerAni in mPickerAniList)
                 {
-                    pickerAni.SetMoveTargetPos(targetPos);
+                   
                 }
 
                 foreach (var blasterAni in mBlasterAniList)
@@ -97,7 +97,9 @@ namespace AnimarsCatcher
             {
                 if (hitColliders[i].CompareTag("PICKER_Ani"))
                 {
-                    mPickerAniList.Add(hitColliders[i].GetComponent<PICKER_Ani>());
+                    var pickerAni = hitColliders[i].GetComponent<PICKER_Ani>();
+                    mPickerAniList.Add(pickerAni);
+                    pickerAni.IsFollow = true;
                 }else if (hitColliders[i].CompareTag("BLASTER_Ani"))
                 {
                     mBlasterAniList.Add(hitColliders[i].GetComponent<BLASTER_Ani>());

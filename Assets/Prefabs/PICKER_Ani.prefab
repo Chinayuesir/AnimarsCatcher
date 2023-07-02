@@ -187,6 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2a91beae94548dfa4ace719b756297b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsFollow: 0
 --- !u!195 &2290847171256608517
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -198,7 +199,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 1
   m_Speed: 10
-  m_Acceleration: 20
+  m_Acceleration: 100
   avoidancePriority: 50
   m_AngularSpeed: 1000
   m_StoppingDistance: 3
