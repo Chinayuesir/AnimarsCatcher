@@ -11,18 +11,40 @@ namespace AnimarsCatcher
 
         public override void OnEnter(params object[] args)
         {
-            mNavmeshAgent.isStopped = false;
-            mAnimator.SetFloat(AniSpeed,10f);
+            
         }
 
         public override void OnStay(params object[] args)
         {
-            mNavmeshAgent.destination = mPlayerTrans.position;
+            FollowPlayer();
+            if (Owner.IsPick)
+            {
+                if(Owner.PickableItem.CheckCanPick())
+                   StateMachine.TranslateState((int)PickerAniState.Pick);
+                else
+                {
+                    StateMachine.TranslateState((int)PickerAniState.Follow);
+                    Owner.IsPick = false;
+                    Owner.PickableItem = null;
+                }
+            }
+        }
+
+        private void FollowPlayer()
+        {
             if (Vector3.Distance(Owner.transform.position, mPlayerTrans.position)
                 <= mNavmeshAgent.stoppingDistance)
             {
-                StateMachine.TranslateState((int)PickerAniState.Idle);
+                mNavmeshAgent.isStopped = true;
+                mAnimator.SetFloat(AniSpeed,0f);
+            }
+            else
+            {
+                mNavmeshAgent.isStopped = false;
+                mNavmeshAgent.destination = mPlayerTrans.position;
+                mAnimator.SetFloat(AniSpeed,10f);
             }
         }
+
     }
 }

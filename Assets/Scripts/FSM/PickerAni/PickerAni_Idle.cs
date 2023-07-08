@@ -19,8 +19,7 @@ namespace AnimarsCatcher
 
         public override void OnStay(params object[] args)
         {
-            if (Owner.IsFollow &&
-                Vector3.Distance(Owner.transform.position, mPlayerTrans.position) > mNavmeshAgent.stoppingDistance)
+            if (Owner.IsFollow)
             {
                 StateMachine.TranslateState((int)PickerAniState.Follow);
             }
