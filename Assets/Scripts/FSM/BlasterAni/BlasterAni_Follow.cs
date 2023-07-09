@@ -1,27 +1,25 @@
-﻿using AnimarsCatcher.FSM;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AnimarsCatcher
 {
-    public class PickerAni_Follow:PickerAniStateBase
+    public class BlasterAni_Follow:BlasterAniStateBase
     {
-        public PickerAni_Follow(int id, PICKER_Ani o) : base(id, o)
+        public BlasterAni_Follow(int id, BLASTER_Ani o) : base(id, o)
         {
         }
         
-
         public override void OnStay(params object[] args)
         {
             FollowPlayer();
-            if (Owner.IsPick)
+            if (Owner.IsShoot)
             {
-                if(Owner.PickableItem.CheckCanPick())
-                    StateMachine.TranslateState((int)PickerAniState.Pick);
+                if(Owner.FragileItem!=null && Owner.FragileItem.CheckCanShoot(Owner.GunTrans.position))
+                    StateMachine.TranslateState((int)BlasterAniState.Shoot);
                 else
                 {
-                    StateMachine.TranslateState((int)PickerAniState.Follow);
-                    Owner.IsPick = false;
-                    Owner.PickableItem = null;
+                    StateMachine.TranslateState((int)BlasterAniState.Follow);
+                    Owner.IsShoot = false;
+                    Owner.FragileItem = null;
                 }
             }
         }

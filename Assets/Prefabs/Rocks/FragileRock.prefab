@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 3890352398066934746}
   - component: {fileID: 5815462419739850618}
   - component: {fileID: 6730530875056478456}
+  - component: {fileID: 2001123534905841811}
   m_Layer: 0
   m_Name: FragileRock
-  m_TagString: Untagged
+  m_TagString: FragileItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,3 +124,15 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.53400004, y: 5.827, z: 0.272}
   m_TimeToStationary: 0.5
+--- !u!114 &2001123534905841811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5590327608077267324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b82cd05751b40f8b5c8a1b7435d1c0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

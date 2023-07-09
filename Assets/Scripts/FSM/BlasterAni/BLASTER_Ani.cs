@@ -1,11 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AnimarsCatcher.FSM;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace AnimarsCatcher
 {
+    public enum BlasterAniState
+    {
+        None=0,
+        Idle=1,
+        Follow=2,
+        Shoot=3,
+    }
+
     public class BLASTER_Ani : MonoBehaviour
     {
         public Transform LeftHandIKTrans;
@@ -14,36 +23,40 @@ namespace AnimarsCatcher
         private Animator mAnimator;
         private NavMeshAgent mAgent;
         
-        private bool mCanMove;
-        private Vector3 mTargetPos;
-        private float mAniSpeed = 5f;
-        private static readonly int AniSpeed = Animator.StringToHash("AniSpeed");
+        //StateMachine
+        private StateMachine mStateMachine;
+        
+        //Get from Player.cs
+        public bool IsFollow = false;
+        public bool IsShoot = false;
+        public FragileItem FragileItem;
+        private static readonly int Shoot1 = Animator.StringToHash("Shoot");
+
+
+        public Transform GunTrans;
 
         private void Awake()
         {
             mAnimator = GetComponent<Animator>();
-            mAgent = GetComponent<NavMeshAgent>();
+        }
+
+        private void Start()
+        {
+            mStateMachine = new StateMachine(new BlasterAni_Idle((int) BlasterAniState.Idle, this));
+            BlasterAni_Follow followState = new BlasterAni_Follow((int) BlasterAniState.Follow, this);
+            mStateMachine.AddState(followState);
+            BlasterAni_Shoot shootState = new BlasterAni_Shoot((int) BlasterAniState.Shoot, this);
+            mStateMachine.AddState(shootState);
         }
 
         private void Update()
         {
-            if (mCanMove)
-            {
-                mAnimator.SetFloat(AniSpeed,mAniSpeed);
-                mAgent.SetDestination(mTargetPos);
-                
-                if (Vector3.Distance(transform.position, mTargetPos) < mAgent.stoppingDistance)
-                {
-                    mCanMove = false;
-                    mAnimator.SetFloat(AniSpeed,0);
-                }
-            }
+           mStateMachine.Update();
         }
 
-        public void SetMoveTargetPos(Vector3 targetPos)
+        public void Shoot()
         {
-            mCanMove = true;
-            mTargetPos = targetPos;
+            mAnimator.SetTrigger(Shoot1);
         }
 
         private void OnAnimatorIK(int layerIndex)

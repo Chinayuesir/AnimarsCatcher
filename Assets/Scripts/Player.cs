@@ -49,6 +49,7 @@ namespace AnimarsCatcher
                 mRightMouseButton = false;
             }
             AssignAniToCarry();
+            AssignAniToShoot();
             
             mCurrentRadius = Mathf.Lerp(mCurrentRadius, mRightMouseButton ? ControlRadiusMax : ControlRadiusMin,
                 Time.deltaTime * 10f);
@@ -91,9 +92,10 @@ namespace AnimarsCatcher
                 }else if (hitColliders[i].CompareTag("BLASTER_Ani"))
                 {
                     var blasterAni = hitColliders[i].GetComponent<BLASTER_Ani>();
-                    if (mBlasterAniList.Contains(blasterAni))
+                    if (!mBlasterAniList.Contains(blasterAni))
                     {
-                        mBlasterAniList.Add(hitColliders[i].GetComponent<BLASTER_Ani>());
+                        mBlasterAniList.Add(blasterAni);
+                        blasterAni.IsFollow = true;
                     }
                 }
             }
@@ -130,6 +132,39 @@ namespace AnimarsCatcher
                 }
             }
 
+            return null;
+        }
+
+        private void AssignAniToShoot()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit,30f))
+                {
+                    if (hit.collider.CompareTag("FragileItem"))
+                    {
+                        var blasterAni = ChooseOneBlasterAni();
+                        if (blasterAni != null)
+                        {
+                            blasterAni.IsShoot = true;
+                            blasterAni.FragileItem = hit.collider.gameObject.GetComponent<FragileItem>();
+                        }
+                    }
+                }
+            }
+        }
+        
+        private BLASTER_Ani ChooseOneBlasterAni()
+        {
+            foreach (var blasterAni in mBlasterAniList)
+            {
+                if (!blasterAni.IsShoot)
+                {
+                    return blasterAni;
+                }
+            }
             return null;
         }
 

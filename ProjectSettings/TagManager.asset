@@ -9,6 +9,7 @@ TagManager:
   - Plane
   - Home
   - PickableItem
+  - FragileItem
   layers:
   - Default
   - TransparentFX
