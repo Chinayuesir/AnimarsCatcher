@@ -10,7 +10,7 @@
         {
             mNavmeshAgent.isStopped = true;
             mAnimator.SetFloat(AniSpeed,0f);
-            Owner.InvokeRepeating("Shoot",0.3f,0.4f);
+            Owner.InvokeRepeating("Shoot",0.3f,1f);
             Owner.transform.LookAt(Owner.FragileItem.transform);
         }
 
