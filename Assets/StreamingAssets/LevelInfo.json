@@ -1,0 +1,44 @@
+﻿{
+  "LevelDatas": [
+    {
+      "Day": 1,
+      "FoodNum": 10,
+      "CrystalNum": 0,
+      "X": 100,
+      "Y": 100,
+      "PickerAniCount": 4,
+      "BlasterAniCount": 0,
+      "LevelTime": 60
+    },
+    {
+      "Day": 2,
+      "FoodNum": 20,
+      "CrystalNum": 2,
+      "X": 100,
+      "Y": 100,
+      "PickerAniCount": 0,
+      "BlasterAniCount": 1,
+      "LevelTime": 60
+    },
+    {
+      "Day": 3,
+      "FoodNum": 20,
+      "CrystalNum": 4,
+      "X": 100,
+      "Y": 200,
+      "PickerAniCount": 0,
+      "BlasterAniCount": 1,
+      "LevelTime": 60
+    },
+    {
+      "Day": 4,
+      "FoodNum": 30,
+      "CrystalNum": 4,
+      "X": 200,
+      "Y": 200,
+      "PickerAniCount": 2,
+      "BlasterAniCount": 1,
+      "LevelTime": 60
+    }
+  ]
+}
