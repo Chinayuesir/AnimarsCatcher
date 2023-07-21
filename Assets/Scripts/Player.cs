@@ -20,10 +20,8 @@ namespace AnimarsCatcher
 
         private List<PICKER_Ani> mPickerAniList = new List<PICKER_Ani>();
         private List<BLASTER_Ani> mBlasterAniList = new List<BLASTER_Ani>();
-        private float mAniSpeed = 2f;
 
         //Components
-        private Rigidbody mRigidbody;
         private CharacterController mCharacterController;
         
         //MainCamera
@@ -32,7 +30,6 @@ namespace AnimarsCatcher
 
         private void Awake()
         {
-            mRigidbody = GetComponent<Rigidbody>();
             mCharacterController = GetComponent<CharacterController>();
             mMainCamera=Camera.main;
         }
@@ -75,7 +72,6 @@ namespace AnimarsCatcher
             if (targetDirection != Vector3.zero)
                 transform.forward = Vector3.Lerp(transform.forward, targetDirection, 10f * Time.deltaTime);
             var speed = targetDirection * MoveSpeed;
-            //mRigidbody.velocity = speed;
             mCharacterController.SimpleMove(speed);
         }
 

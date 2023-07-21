@@ -21,9 +21,6 @@ namespace AnimarsCatcher
         //State Machine
         private StateMachine mStateMachine;
         
-        private float mAniSpeed = 5f;
-        private static readonly int AniSpeed = Animator.StringToHash("AniSpeed");
-        
         //get from Player.cs
         public bool IsFollow=false;
         public bool IsPick = false;

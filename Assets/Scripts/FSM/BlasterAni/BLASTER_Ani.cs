@@ -21,8 +21,7 @@ namespace AnimarsCatcher
         public Transform RightHandIKTrans;
         
         private Animator mAnimator;
-        private NavMeshAgent mAgent;
-        
+
         //StateMachine
         private StateMachine mStateMachine;
         
@@ -31,8 +30,7 @@ namespace AnimarsCatcher
         public bool IsShoot = false;
         public FragileItem FragileItem;
         private static readonly int Shoot1 = Animator.StringToHash("Shoot");
-
-
+        
         public Transform GunTrans;
 
         private void Awake()
