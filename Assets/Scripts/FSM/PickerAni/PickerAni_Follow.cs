@@ -15,11 +15,13 @@ namespace AnimarsCatcher
             FollowPlayer();
             if (Owner.IsPick)
             {
-                if(Owner.PickableItem.CheckCanPick())
+                if (Owner.PickableItem.CheckCanPick())
+                {
+                    Owner.PickableItem.AddPickerAni(Owner);
                     StateMachine.TranslateState((int)PickerAniState.Pick);
+                }
                 else
                 {
-                    StateMachine.TranslateState((int)PickerAniState.Follow);
                     Owner.IsPick = false;
                     Owner.PickableItem = null;
                 }

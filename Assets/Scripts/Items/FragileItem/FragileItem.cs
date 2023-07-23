@@ -11,8 +11,12 @@ namespace AnimarsCatcher
         bool HasDestroyed();
     }
 
-    public class FragileItem : MonoBehaviour,ICanShoot
+    public class FragileItem : MonoBehaviour,ICanShoot,IResource
     {
+        [SerializeField]
+        private int mResourceCount;
+        public int ResourceCount => mResourceCount;
+        
         private LayerMask mMask;
         public bool IsDestroyed = false;
         

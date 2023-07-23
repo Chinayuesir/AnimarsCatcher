@@ -11,8 +11,12 @@ namespace AnimarsCatcher
         bool CheckCanCarry();
     }
 
-    public class PickableItem : MonoBehaviour,ICanPick
+    public class PickableItem : MonoBehaviour,ICanPick,IResource
     {
+        [SerializeField]
+        private int mResourceCount;
+        public int ResourceCount => mResourceCount;
+        
         public List<Vector3> Positions = new List<Vector3>();
 
         public int MaxAniCount=2;
@@ -67,7 +71,7 @@ namespace AnimarsCatcher
 
         public Vector3 GetPosition(PICKER_Ani ani)
         {
-            return transform.position + Positions[mAnis.IndexOf(ani)];
+            return transform.TransformPoint(Positions[mAnis.IndexOf(ani)]);
         }
 
         public bool CheckCanPick()
@@ -77,7 +81,17 @@ namespace AnimarsCatcher
 
         public bool CheckCanCarry()
         {
-            return CurrentAniCount == MaxAniCount;
+            if (CurrentAniCount == MaxAniCount)
+            {
+                foreach (var ani in mAnis)
+                {
+                    if(!ani.ReadyToCarry) return false;
+                }
+
+                return true;
+            }
+
+            return false;
         }
 
         public void AddPickerAni(PICKER_Ani pickerAni)

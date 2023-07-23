@@ -18,11 +18,10 @@ namespace AnimarsCatcher
         {
             if (FindPickableItem() && !Owner.ReadyToCarry)
             {
-                Owner.PickableItem.AddPickerAni(Owner);
                 Owner.ReadyToCarry = true;
             }
 
-            if (Owner.PickableItem.CheckCanCarry())
+            if (Owner.PickableItem.CheckCanCarry() && Owner.ReadyToCarry)
             {
                 StateMachine.TranslateState((int)PickerAniState.Carry);
             }
