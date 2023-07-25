@@ -4,9 +4,10 @@ namespace AnimarsCatcher
 {
     public class GameModel
     {
-        public int Day;
-        public int PickerAniCount;
-        public int BlasterAniCount;
+        public ReactiveProperty<int> Day=new ReactiveProperty<int>();
+        public ReactiveProperty<int> PickerAniCount=new ReactiveProperty<int>();
+        public ReactiveProperty<int> BlasterAniCount=new ReactiveProperty<int>();
+        public ReactiveProperty<int> FoodSum=new ReactiveProperty<int>();
 
         public bool HasSaveData()
         {
@@ -15,16 +16,18 @@ namespace AnimarsCatcher
 
         public void Load()
         {
-            Day = PlayerPrefs.GetInt(nameof(Day));
-            PickerAniCount = PlayerPrefs.GetInt(nameof(PickerAniCount));
-            BlasterAniCount = PlayerPrefs.GetInt(nameof(BlasterAniCount));
+            Day.Value = PlayerPrefs.GetInt(nameof(Day));
+            PickerAniCount.Value = PlayerPrefs.GetInt(nameof(PickerAniCount));
+            BlasterAniCount.Value = PlayerPrefs.GetInt(nameof(BlasterAniCount));
+            FoodSum.Value=PlayerPrefs.GetInt(nameof(FoodSum));
         }
 
         public void Save()
         {
-            PlayerPrefs.SetInt(nameof(Day),Day);
-            PlayerPrefs.SetInt(nameof(PickerAniCount),PickerAniCount);
-            PlayerPrefs.SetInt(nameof(BlasterAniCount),BlasterAniCount);
+            PlayerPrefs.SetInt(nameof(Day),Day.Value);
+            PlayerPrefs.SetInt(nameof(PickerAniCount),PickerAniCount.Value);
+            PlayerPrefs.SetInt(nameof(BlasterAniCount),BlasterAniCount.Value);
+            PlayerPrefs.SetInt(nameof(FoodSum),FoodSum.Value);
         }
     }
 }

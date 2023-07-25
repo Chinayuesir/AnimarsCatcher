@@ -66,6 +66,7 @@ namespace AnimarsCatcher
                 Positions.Clear();
                 //TODO: Play an animation
                 Destroy(gameObject);
+                FindObjectOfType<GameRoot>().GameModel.FoodSum.Value += mResourceCount;
             }
         }
 

@@ -14,6 +14,8 @@ namespace AnimarsCatcher
         private LevelInfo mInfo;
         private Timer mTimer;
         private GameModel mGameModel;
+        public GameModel GameModel => mGameModel;
+        private AchievementSystem mAchievementSystem;
 
         private GameObject mPickerAniPrefab;
         private GameObject mBlasterAniPrefab;
@@ -32,6 +34,8 @@ namespace AnimarsCatcher
             mHomeTrans = GameObject.FindWithTag("Home").transform;
             mTimer = new Timer();
             mGameModel = new GameModel();
+            mAchievementSystem = new AchievementSystem();
+            mAchievementSystem.Init(mGameModel);
 
             mPickerAniPrefab = Resources.Load<GameObject>(ResPath.PickerAniPath);
             mBlasterAniPrefab = Resources.Load<GameObject>(ResPath.BlasterAniPath);
@@ -48,7 +52,7 @@ namespace AnimarsCatcher
              }
              else
              {
-                 mGameModel.Day = 1;
+                 mGameModel.Day.Value = 1;
                  LoadLevel(1);
              }
         }
@@ -65,7 +69,7 @@ namespace AnimarsCatcher
 
         private void LoadNextLevel()
         {
-            int day = ++mGameModel.Day;
+            int day = ++mGameModel.Day.Value;
             LoadLevel(day);
         }
 
@@ -75,16 +79,16 @@ namespace AnimarsCatcher
             LevelData levelData = mInfo.LevelDatas[day - 1];
             LoadMap(levelData);
             StartCoroutine(SpawnAnis(levelData.PickerAniCount, levelData.BlasterAniCount));
-            mGameModel.PickerAniCount += levelData.PickerAniCount;
-            mGameModel.BlasterAniCount += levelData.BlasterAniCount;
+            mGameModel.PickerAniCount.Value += levelData.PickerAniCount;
+            mGameModel.BlasterAniCount.Value += levelData.BlasterAniCount;
         }
 
         private void LoadLevelFromSaveData()
         {
             Debug.Log($"load level from savedata day: {mGameModel.Day}");
-            LevelData levelData = mInfo.LevelDatas[mGameModel.Day - 1];
+            LevelData levelData = mInfo.LevelDatas[mGameModel.Day.Value - 1];
             LoadMap(levelData);
-            StartCoroutine(SpawnAnis(mGameModel.PickerAniCount, mGameModel.BlasterAniCount));
+            StartCoroutine(SpawnAnis(mGameModel.PickerAniCount.Value, mGameModel.BlasterAniCount.Value));
         }
 
         private void LoadMap(LevelData levelData)
