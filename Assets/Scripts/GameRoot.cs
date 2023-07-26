@@ -85,7 +85,7 @@ namespace AnimarsCatcher
 
         private void LoadLevelFromSaveData()
         {
-            Debug.Log($"load level from savedata day: {mGameModel.Day}");
+            Debug.Log($"load level from save data day: {mGameModel.Day.Value}");
             LevelData levelData = mInfo.LevelDatas[mGameModel.Day.Value - 1];
             LoadMap(levelData);
             StartCoroutine(SpawnAnis(mGameModel.PickerAniCount.Value, mGameModel.BlasterAniCount.Value));
