@@ -52,6 +52,7 @@ namespace AnimarsCatcher
             if (mTeamAgent.enabled)
             {
                 mTeamAgent.SetDestination(mHomeTransform.position);
+                mTeamAgent.speed = (float) CurrentAniCount / MaxAniCount * 2 * Const.BaseCarrySpeed;
             }
 
             if (Vector3.Distance(transform.GetPositionOnTerrain(),mHomeTransform.position)
@@ -82,7 +83,7 @@ namespace AnimarsCatcher
 
         public bool CheckCanCarry()
         {
-            if (CurrentAniCount == MaxAniCount)
+            if (CurrentAniCount>0 && CurrentAniCount >= MaxAniCount/2)
             {
                 foreach (var ani in mAnis)
                 {
