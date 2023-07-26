@@ -11,5 +11,6 @@ namespace AnimarsCatcher
         public static readonly string BlasterAniPath = "BLASTER_ANI";
         public static readonly string FoodPrefabPath = "Fruits";
         public static readonly string CrystalPrefabPath = "Crystals";
+        public static readonly string FX_BeamPrefabPath = "FX_Beam";
     }
 }
