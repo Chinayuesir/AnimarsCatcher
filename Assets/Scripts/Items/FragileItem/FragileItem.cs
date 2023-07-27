@@ -1,7 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
+using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
+using Vector3 = UnityEngine.Vector3;
 
 namespace AnimarsCatcher
 {
@@ -16,10 +20,11 @@ namespace AnimarsCatcher
         [SerializeField]
         private int mResourceCount;
         public int ResourceCount => mResourceCount;
-        
+        public ReactiveProperty<int> HP = new ReactiveProperty<int>(100);
+        public List<GameObject> PickableCrystals;
+
         private LayerMask mMask;
-        public bool IsDestroyed = false;
-        
+
         private LayerMask mSelfLayerMask;
 
         private void Awake()
@@ -27,6 +32,20 @@ namespace AnimarsCatcher
             mMask = (1 << LayerMask.NameToLayer("Ani")) | (1 << LayerMask.NameToLayer("Player"));
             mMask = ~mMask;
             mSelfLayerMask = gameObject.layer;
+        }
+
+        private void Start()
+        {
+            HP.Subscribe(hp =>
+            {
+                if (hp <= 0)
+                {
+                    var go= Instantiate(PickableCrystals[Random.Range(0, PickableCrystals.Count)],
+                        transform.position, quaternion.identity);
+                    go.transform.localScale = 3 * Vector3.one;
+                    Destroy(gameObject);
+                }
+            });
         }
 
         public bool CheckCanShoot(Vector3 position)
@@ -40,7 +59,7 @@ namespace AnimarsCatcher
 
         public bool HasDestroyed()
         {
-            return IsDestroyed;
+            return HP.Value<=0;
         }
         
         private void OnMouseEnter()

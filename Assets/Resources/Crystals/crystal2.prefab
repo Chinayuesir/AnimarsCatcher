@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 9209613579216544513}
   - component: {fileID: 1792317104374513453}
   - component: {fileID: -1892576953527228318}
+  - component: {fileID: 5632116992739878804}
   m_Layer: 0
   m_Name: crystal2
-  m_TagString: Untagged
+  m_TagString: FragileItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3320517679385806202}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 1}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -97,4 +98,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mResourceCount: 1
-  IsDestroyed: 0
+  PickableCrystals:
+  - {fileID: 7313421980259677226, guid: 890294b5157d69442babc9883ddac694, type: 3}
+  - {fileID: 3320517679385806202, guid: da18aabd6e8fe61498307386bd561c0a, type: 3}
+  - {fileID: 2801192330186450393, guid: 0876f0945ca7e0640bbb247bcb619de7, type: 3}
+  - {fileID: 6125005442144882315, guid: 44d63ca64edc04747a3357c6c53a7d98, type: 3}
+--- !u!65 &5632116992739878804
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3320517679385806202}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.43595397, y: 0.7392643, z: 0.54139006}
+  m_Center: {x: 0.061079085, y: 0.26460883, z: 0.03751065}

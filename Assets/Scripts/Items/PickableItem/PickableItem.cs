@@ -11,11 +11,18 @@ namespace AnimarsCatcher
         bool CheckCanCarry();
     }
 
+    public enum PickableItemType
+    {
+        Food,
+        Crystal
+    }
+
     public class PickableItem : MonoBehaviour,ICanPick,IResource
     {
         [SerializeField]
         private int mResourceCount;
         public int ResourceCount => mResourceCount;
+        public PickableItemType ItemType;
         
         public List<Vector3> Positions = new List<Vector3>();
 
@@ -66,8 +73,18 @@ namespace AnimarsCatcher
                 mAnis.Clear();
                 Positions.Clear();
                 //TODO: Play an animation
+                switch (ItemType)
+                {
+                    case PickableItemType.Food:
+                        FindObjectOfType<GameRoot>().GameModel.FoodSum.Value += mResourceCount;
+                        break;
+                    case PickableItemType.Crystal:
+                        FindObjectOfType<GameRoot>().GameModel.CrystalSum.Value += mResourceCount;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
                 Destroy(gameObject);
-                FindObjectOfType<GameRoot>().GameModel.FoodSum.Value += mResourceCount;
             }
         }
 

@@ -8,6 +8,7 @@ namespace AnimarsCatcher
         public ReactiveProperty<int> PickerAniCount=new ReactiveProperty<int>();
         public ReactiveProperty<int> BlasterAniCount=new ReactiveProperty<int>();
         public ReactiveProperty<int> FoodSum=new ReactiveProperty<int>();
+        public ReactiveProperty<int> CrystalSum=new ReactiveProperty<int>();
 
         public bool HasSaveData()
         {
@@ -20,6 +21,7 @@ namespace AnimarsCatcher
             PickerAniCount.Value = PlayerPrefs.GetInt(nameof(PickerAniCount));
             BlasterAniCount.Value = PlayerPrefs.GetInt(nameof(BlasterAniCount));
             FoodSum.Value=PlayerPrefs.GetInt(nameof(FoodSum));
+            CrystalSum.Value=PlayerPrefs.GetInt(nameof(CrystalSum));
         }
 
         public void Save()
@@ -28,6 +30,7 @@ namespace AnimarsCatcher
             PlayerPrefs.SetInt(nameof(PickerAniCount),PickerAniCount.Value);
             PlayerPrefs.SetInt(nameof(BlasterAniCount),BlasterAniCount.Value);
             PlayerPrefs.SetInt(nameof(FoodSum),FoodSum.Value);
+            PlayerPrefs.SetInt(nameof(CrystalSum),CrystalSum.Value);
         }
     }
 }
