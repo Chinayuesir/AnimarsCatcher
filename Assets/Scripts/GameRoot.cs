@@ -22,6 +22,8 @@ namespace AnimarsCatcher
 
         private Transform mHomeTrans;
         public Transform Anis;
+        public Animator EnvironmentAnimator;
+        public Transform BluePrints;
 
         [MenuItem("Tools/Clear Save Data")]
         public static void ClearSaveData()
@@ -55,6 +57,13 @@ namespace AnimarsCatcher
                  mGameModel.Day.Value = 1;
                  LoadLevel(1);
              }
+             GameModel.BlueprintCount.Subscribe(count =>
+             {
+                 if (count == 9)
+                 {
+                     Debug.Log("Mission Complete!");
+                 }
+             });
         }
 
         private void Update()
@@ -81,6 +90,10 @@ namespace AnimarsCatcher
             StartCoroutine(SpawnAnis(levelData.PickerAniCount, levelData.BlasterAniCount));
             mGameModel.PickerAniCount.Value += levelData.PickerAniCount;
             mGameModel.BlasterAniCount.Value += levelData.BlasterAniCount;
+            
+            EnvironmentAnimator.Rebind();
+            EnvironmentAnimator.Play("Light");
+            StartTimer(levelData.LevelTime);
         }
 
         private void LoadLevelFromSaveData()
@@ -89,6 +102,10 @@ namespace AnimarsCatcher
             LevelData levelData = mInfo.LevelDatas[mGameModel.Day.Value - 1];
             LoadMap(levelData);
             StartCoroutine(SpawnAnis(mGameModel.PickerAniCount.Value, mGameModel.BlasterAniCount.Value));
+            
+            EnvironmentAnimator.Rebind();
+            EnvironmentAnimator.Play("Light");
+            StartTimer(levelData.LevelTime);
         }
 
         private void LoadMap(LevelData levelData)
@@ -97,6 +114,44 @@ namespace AnimarsCatcher
             
             MapManager.Instance.LoadItems(mapSize,levelData.FoodNum,2,ResPath.FoodPrefabPath);
             MapManager.Instance.LoadItems(mapSize,levelData.CrystalNum,2,ResPath.CrystalPrefabPath);
+        }
+
+        private void StartTimer(int seconds)
+        {
+            mTimer.AddTask(id =>
+            {
+                Debug.Log($"Remaining Second:{seconds}");
+                seconds -= 1;
+                if (seconds <= 0)
+                {
+                    LoadNextLevel();
+                    mTimer.DeleteTask(id);
+                }
+            }, 1, seconds);
+
+            mTimer.AddTask(id =>
+            {
+                int random = Random.Range(0, 2);
+                if (random == 0)
+                {
+                    GetOneBlueprint();
+                    mTimer.DeleteTask(id);
+                }
+            }, 30, 1);
+        }
+
+        private void GetOneBlueprint()
+        {
+            int childCount = BluePrints.childCount;
+            if (childCount != 0)
+            {
+                var child = BluePrints.GetChild(Random.Range(0, BluePrints.childCount));
+                if (!child.gameObject.activeSelf)
+                {
+                    child.gameObject.SetActive(true);
+                    child.gameObject.AddComponent<Blueprint>();
+                }
+            }
         }
 
         private IEnumerator SpawnAnis(int pickerAniCount, int blasterAniCount)
