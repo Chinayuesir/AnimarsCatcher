@@ -87,6 +87,7 @@ namespace AnimarsCatcher
                     if (!mPickerAniList.Contains(pickerAni))
                     {
                         mPickerAniList.Add(pickerAni);
+                        FindObjectOfType<GameRoot>().GameModel.InTeamPickerAniCount.Value++;
                         pickerAni.IsFollow = true;
                     }
                 }else if (hitColliders[i].CompareTag("BLASTER_Ani"))
@@ -95,6 +96,7 @@ namespace AnimarsCatcher
                     if (!mBlasterAniList.Contains(blasterAni))
                     {
                         mBlasterAniList.Add(blasterAni);
+                        FindObjectOfType<GameRoot>().GameModel.InTeamBlasterAniCount.Value++;
                         blasterAni.IsFollow = true;
                     }
                 }
