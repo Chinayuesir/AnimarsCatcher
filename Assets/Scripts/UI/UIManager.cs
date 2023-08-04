@@ -1,6 +1,7 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace AnimarsCatcher
 {
@@ -16,6 +17,14 @@ namespace AnimarsCatcher
         public TextMeshProUGUI Text_Crystal;
         public TextMeshProUGUI Text_InTeamAniCount;
         public TextMeshProUGUI Text_OnGroundAniCount;
+        
+        //Button
+        public Button RobotIcon;
+        public Button Button_ReturnGame;
+        public Button Button_QuitGame;
+        
+        //Panel
+        public GameObject MenuPanel;
 
         private void Awake()
         {
@@ -35,6 +44,24 @@ namespace AnimarsCatcher
             levelTime.Subscribe(time =>
             {
                 Text_LevelTime.text = time.ToString();
+            });
+            
+            RobotIcon.onClick.AddListener(() =>
+            {
+                MenuPanel.SetActive(true);
+                Time.timeScale = 0;
+            });
+            
+            Button_ReturnGame.onClick.AddListener(() =>
+            {
+                MenuPanel.SetActive(false);
+                Time.timeScale = 1;
+            });
+            
+            Button_QuitGame.onClick.AddListener(() =>
+            {
+                Debug.Log("Quit Game");
+                Application.Quit();
             });
         }
 
