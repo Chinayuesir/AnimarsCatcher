@@ -27,11 +27,15 @@ namespace AnimarsCatcher
         //MainCamera
         private Camera mMainCamera;
         
+        //Audio
+        private AudioSource mWalkAudioSource;
+        
 
         private void Awake()
         {
             mCharacterController = GetComponent<CharacterController>();
             mMainCamera=Camera.main;
+            mWalkAudioSource = GetComponent<AudioSource>();
         }
 
         // Update is called once per frame
@@ -65,6 +69,16 @@ namespace AnimarsCatcher
         {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
+
+            if (h != 0 || v != 0)
+            {
+                if(!mWalkAudioSource.isPlaying) mWalkAudioSource.Play();
+            }
+            else
+            {
+                mWalkAudioSource.Stop();
+            }
+
             float y = mMainCamera.transform.rotation.eulerAngles.y;
             Vector3 targetDirection = new Vector3(h, 0, v);
             targetDirection = Quaternion.Euler(0, y, 0) * targetDirection;

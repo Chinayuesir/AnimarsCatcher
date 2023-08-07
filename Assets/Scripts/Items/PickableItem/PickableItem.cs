@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -31,8 +32,12 @@ namespace AnimarsCatcher
         private List<PICKER_Ani> mAnis;
         private NavMeshAgent mTeamAgent;
         private Transform mHomeTransform;
+        private Transform mPickedTrans;
 
         private LayerMask mLayerMask;
+
+        private bool mIsPicked = false;
+        private AudioSource mPickedAudioSource;
 
         private void Awake()
         {
@@ -40,8 +45,10 @@ namespace AnimarsCatcher
             mTeamAgent = GetComponent<NavMeshAgent>();
             mTeamAgent.enabled = false;
             mHomeTransform = GameObject.FindWithTag("Home").transform;
+            mPickedTrans = mHomeTransform.Find("PickedPos").transform;
 
             mLayerMask = gameObject.layer;
+            mPickedAudioSource = GetComponent<AudioSource>();
         }
 
         private void Update()
@@ -63,8 +70,9 @@ namespace AnimarsCatcher
             }
 
             if (Vector3.Distance(transform.GetPositionOnTerrain(),mHomeTransform.position)
-                < mTeamAgent.stoppingDistance)
+                < mTeamAgent.stoppingDistance && !mIsPicked)
             {
+                mIsPicked = true;
                 foreach (var ani in mAnis)
                 {
                     ani.ReadyToCarry = false;
@@ -72,7 +80,6 @@ namespace AnimarsCatcher
                 }
                 mAnis.Clear();
                 Positions.Clear();
-                //TODO: Play an animation
                 switch (ItemType)
                 {
                     case PickableItemType.Food:
@@ -84,7 +91,13 @@ namespace AnimarsCatcher
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                Destroy(gameObject);
+
+                if(!mPickedAudioSource.isPlaying) mPickedAudioSource.Play();
+                transform.DOMove(mPickedTrans.position, 2f);
+                transform.DOScale(Vector3.zero, 2f).OnComplete(() =>
+                {
+                    Destroy(gameObject);
+                });
             }
         }
 
