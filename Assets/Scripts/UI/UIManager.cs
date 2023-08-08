@@ -67,18 +67,23 @@ namespace AnimarsCatcher
             
             RobotIcon.onClick.AddListener(() =>
             {
+                AudioManager.Instance.PlayMenuBtnAudio();
+                AudioManager.Instance.EnterMenu();
                 MenuPanel.SetActive(true);
                 Time.timeScale = 0;
             });
             
             Button_ReturnGame.onClick.AddListener(() =>
             {
+                AudioManager.Instance.PlayMenuBtnAudio();
+                AudioManager.Instance.ExitMenu();
                 MenuPanel.SetActive(false);
                 Time.timeScale = 1;
             });
             
             Button_QuitGame.onClick.AddListener(() =>
             {
+                AudioManager.Instance.PlayMenuBtnAudio();
                 Debug.Log("Quit Game");
                 Application.Quit();
             });
@@ -133,6 +138,7 @@ namespace AnimarsCatcher
 
         private void AniIconBtnClick(Button button1, Button button2)
         {
+            AudioManager.Instance.PlaySwitchBtnAudio();
             switch (mAniInfoType)
             {
                 case AniInfoType.Picker:
