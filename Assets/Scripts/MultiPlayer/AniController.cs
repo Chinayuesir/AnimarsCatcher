@@ -7,44 +7,99 @@ namespace AnimarsCatcher
 {
     public class AniController:NetworkBehaviour
     {
-        public NetworkVariable<Vector3> Position = new NetworkVariable<Vector3>();
+        private float mTurnSpeed = 3f;
+        private float mRunSpeed = 5f;
+        private Animator mAnimator;
+        private CharacterController mCharacterController;
+        private Vector2 mRandomX = new Vector2(140, 160);
+        private Vector2 mRandomZ = new Vector2(40, 60);
+        
+        //NetworkVariables
+        private NetworkVariable<Vector3> mNetworkPosition = new NetworkVariable<Vector3>();
+        private NetworkVariable<Vector3> mNetworkRotation = new NetworkVariable<Vector3>();
+        private NetworkVariable<bool> mIsRun = new NetworkVariable<bool>();
+        
+        //NetworkVariables Cache
+        private Vector3 mOldPosition;
+        private Vector3 mOldRotation;
 
-        private void Start()
+        public override void OnNetworkSpawn()
         {
-            if (IsOwner)
+            mAnimator = GetComponent<Animator>();
+            mCharacterController = GetComponent<CharacterController>();
+
+            if (IsServer || IsClient)
             {
-                Move();
+                Vector3 randomPos = new Vector3(
+                    Random.Range(mRandomX.x, mRandomX.y), 0,
+                    Random.Range(mRandomZ.x, mRandomZ.y));
+                transform.position = randomPos;
             }
+
+            if (IsClient && IsOwner)
+            {
+                FollowPlayerCamera.Instance.SetPlayerTrans(transform.Find("Root"));
+            }
+
+            base.OnNetworkSpawn();
         }
 
         private void Update()
         {
-            transform.position = Position.Value;
+            if (IsClient && IsOwner)
+            {
+                ClientInput();
+            }
+            
+            ClientMove();
+            ClientAnimation();
         }
 
-        public void Move()
+        private void ClientMove()
         {
-            if (NetworkManager.Singleton.IsServer)
-            {
-                var randomPos = GetRandomPosition();
-                transform.position = randomPos;
-                Position.Value = transform.position;
-            }
-            else
-            {
-                SubmitPositionRequestServerRpc();
-            }
+            mCharacterController.SimpleMove(mNetworkPosition.Value);
+            transform.Rotate(mNetworkRotation.Value,Space.World);
         }
 
-        static Vector3 GetRandomPosition()
+        private void ClientAnimation()
         {
-            return new Vector3(Random.Range(52, 55f), 0f, Random.Range(33, 37f));
+            mAnimator.SetBool("IsRun",mIsRun.Value);
+        }
+
+        private void ClientInput()
+        {
+            //Player Input
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
+
+            Vector3 dir = transform.TransformDirection(Vector3.forward);
+            Vector3 inputPosition = dir * vertical;
+            Vector3 inputRotation = new Vector3(0, horizontal, 0);
+
+            if (mOldPosition != inputPosition || mOldRotation != inputRotation)
+            {
+                mOldPosition = inputPosition;
+                mOldRotation = inputRotation;
+                UpdatePlayerMovementServerRpc(mRunSpeed*inputPosition,mTurnSpeed*inputRotation);
+            }
+
+            bool hasHorizontalInput = !Mathf.Approximately(horizontal, 0f);
+            bool hasVerticalInput = !Mathf.Approximately(vertical, 0f);
+            bool state = hasHorizontalInput || hasVerticalInput;
+            UpdatePlayerAnimationServerRpc(state);
         }
 
         [ServerRpc]
-        void SubmitPositionRequestServerRpc(ServerRpcParams rpcParams = default)
+        private void UpdatePlayerMovementServerRpc(Vector3 newPosition, Vector3 newRotation)
         {
-            Position.Value = GetRandomPosition();
+            mNetworkPosition.Value = newPosition;
+            mNetworkRotation.Value=newRotation;
+        }
+
+        [ServerRpc]
+        private void UpdatePlayerAnimationServerRpc(bool state)
+        {
+            mIsRun.Value = state;
         }
     }
 }

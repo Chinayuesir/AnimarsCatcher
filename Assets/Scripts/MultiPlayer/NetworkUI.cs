@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +14,9 @@ namespace AnimarsCatcher
         public Button StartServerBtn;
         public Button StartHostBtn;
         public Button StartClientBtn;
-        public Button MoveBtn;
+        private TextMeshProUGUI mScore;
+
+        public static int PlayerScore = 0;
 
         private void Awake()
         {
@@ -31,15 +34,13 @@ namespace AnimarsCatcher
             {
                 NetworkManager.Singleton.StartClient();
             });
-            
-            MoveBtn.onClick.AddListener(() =>
-            {
-                if (NetworkManager.Singleton.IsClient)
-                {
-                    var ani = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
-                    ani.GetComponent<AniController>().Move();
-                }
-            });
+
+            mScore = transform.Find("PlayerScore/Count").GetComponent<TextMeshProUGUI>();
+        }
+
+        private void Update()
+        {
+            mScore.text = PlayerScore.ToString();
         }
     }
 }
