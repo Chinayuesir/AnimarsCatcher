@@ -6,7 +6,11 @@ TagManager:
   tags:
   - PICKER_Ani
   - BLASTER_Ani
-  - CanCarry
+  - Plane
+  - Home
+  - PickableItem
+  - FragileItem
+  - Blueprint
   layers:
   - Default
   - TransparentFX
@@ -14,10 +18,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Ani
+  - Terrain
+  - SelectedObject
   - 
   - 
   - 

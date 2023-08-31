@@ -7,12 +7,12 @@ namespace AnimarsCatcher
 {
     public class Player : MonoBehaviour
     {
-        public Animator PICKER_Ani;
-        public Animator BLASTER_Ani;
         public float MoveSpeed = 20f;
 
         public float ControlRadiusMin = 0f;
         public float ControlRadiusMax = 5f;
+
+        public GameObject TargetPosGo;
 
         private float mCurrentRadius;
         private Vector3 mTargetPos;
@@ -20,10 +20,8 @@ namespace AnimarsCatcher
 
         private List<PICKER_Ani> mPickerAniList = new List<PICKER_Ani>();
         private List<BLASTER_Ani> mBlasterAniList = new List<BLASTER_Ani>();
-        private float mAniSpeed = 2f;
 
         //Components
-        private Rigidbody mRigidbody;
         private CharacterController mCharacterController;
         
         //MainCamera
@@ -32,7 +30,6 @@ namespace AnimarsCatcher
 
         private void Awake()
         {
-            mRigidbody = GetComponent<Rigidbody>();
             mCharacterController = GetComponent<CharacterController>();
             mMainCamera=Camera.main;
         }
@@ -50,23 +47,13 @@ namespace AnimarsCatcher
             {
                 mRightMouseButton = false;
             }
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                var targetPos = GetMouseWorldPos();
-                foreach (var pickerAni in mPickerAniList)
-                {
-                    pickerAni.SetMoveTargetPos(targetPos);
-                }
-
-                foreach (var blasterAni in mBlasterAniList)
-                {
-                    blasterAni.SetMoveTargetPos(targetPos);
-                }
-            }
-
+            AssignAniToCarry();
+            AssignAniToShoot();
+            
             mCurrentRadius = Mathf.Lerp(mCurrentRadius, mRightMouseButton ? ControlRadiusMax : ControlRadiusMin,
                 Time.deltaTime * 10f);
+            TargetPosGo.transform.position = GetMouseWorldPos();
+            TargetPosGo.transform.Find("Cylinder").localScale = Vector3.one * (2 * mCurrentRadius);
         }
 
         private void FixedUpdate()
@@ -85,7 +72,6 @@ namespace AnimarsCatcher
             if (targetDirection != Vector3.zero)
                 transform.forward = Vector3.Lerp(transform.forward, targetDirection, 10f * Time.deltaTime);
             var speed = targetDirection * MoveSpeed;
-            //mRigidbody.velocity = speed;
             mCharacterController.SimpleMove(speed);
         }
 
@@ -97,20 +83,93 @@ namespace AnimarsCatcher
             {
                 if (hitColliders[i].CompareTag("PICKER_Ani"))
                 {
-                    mPickerAniList.Add(hitColliders[i].GetComponent<PICKER_Ani>());
+                    var pickerAni = hitColliders[i].GetComponent<PICKER_Ani>();
+                    if (!mPickerAniList.Contains(pickerAni))
+                    {
+                        mPickerAniList.Add(pickerAni);
+                        FindObjectOfType<GameRoot>().GameModel.InTeamPickerAniCount.Value++;
+                        pickerAni.IsFollow = true;
+                    }
                 }else if (hitColliders[i].CompareTag("BLASTER_Ani"))
                 {
-                    mBlasterAniList.Add(hitColliders[i].GetComponent<BLASTER_Ani>());
+                    var blasterAni = hitColliders[i].GetComponent<BLASTER_Ani>();
+                    if (!mBlasterAniList.Contains(blasterAni))
+                    {
+                        mBlasterAniList.Add(blasterAni);
+                        FindObjectOfType<GameRoot>().GameModel.InTeamBlasterAniCount.Value++;
+                        blasterAni.IsFollow = true;
+                    }
                 }
             }
         }
 
-        private void OnDrawGizmos()
+        private void AssignAniToCarry()
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(mTargetPos,mCurrentRadius);
+            if (Input.GetMouseButtonDown(0))
+            {
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit,50f))
+                {
+                    if (hit.collider.CompareTag("PickableItem"))
+                    {
+                        var pickerAni = ChooseOnePickerAni();
+                        if (pickerAni != null)
+                        {
+                            pickerAni.IsPick = true;
+                            pickerAni.PickableItem = hit.collider.gameObject.GetComponent<PickableItem>();
+                        }
+                    }
+                }
+            }
         }
 
+        private PICKER_Ani ChooseOnePickerAni()
+        {
+            foreach (var pickerAni in mPickerAniList)
+            {
+                if (!pickerAni.IsPick)
+                {
+                    return pickerAni;
+                }
+            }
+
+            return null;
+        }
+
+        private void AssignAniToShoot()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit,50f))
+                {
+                    if (hit.collider.CompareTag("FragileItem"))
+                    {
+                        var blasterAni = ChooseOneBlasterAni();
+                        if (blasterAni != null)
+                        {
+                            blasterAni.IsShoot = true;
+                            blasterAni.FragileItem = hit.collider.gameObject.GetComponent<FragileItem>();
+                        }
+                    }
+                }
+            }
+        }
+        
+        private BLASTER_Ani ChooseOneBlasterAni()
+        {
+            foreach (var blasterAni in mBlasterAniList)
+            {
+                if (!blasterAni.IsShoot)
+                {
+                    return blasterAni;
+                }
+            }
+            return null;
+        }
+        
         private Vector3 GetMouseWorldPos()
         {
             Ray ray = mMainCamera.ScreenPointToRay(Input.mousePosition);
@@ -120,35 +179,7 @@ namespace AnimarsCatcher
             }
             return Vector3.zero;
         }
-
-        //Test Code for Animation
-        private void AnimationSystemTest()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                PICKER_Ani.SetBool("LeftMouseDown",true);
-                BLASTER_Ani.SetBool("LeftMouseDown",true);
-            }
-
-            if (Input.GetMouseButton(0))
-            {
-                mAniSpeed = Mathf.Clamp(mAniSpeed + Time.deltaTime * 5, 2, 5);
-                PICKER_Ani.SetFloat("AniSpeed",mAniSpeed);
-                BLASTER_Ani.SetFloat("AniSpeed",mAniSpeed);
-            }
-
-            if (Input.GetMouseButton(1))
-            {
-                mAniSpeed = Mathf.Clamp(mAniSpeed - Time.deltaTime * 5, 2, 5);
-                PICKER_Ani.SetFloat("AniSpeed",mAniSpeed);
-                BLASTER_Ani.SetFloat("AniSpeed",mAniSpeed);
-            }
-
-            if (Input.GetKeyDown(KeyCode.J))
-            {
-                BLASTER_Ani.SetTrigger("Shoot");
-            }
-        }
+        
     }
 }
 
