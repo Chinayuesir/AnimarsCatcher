@@ -13,6 +13,7 @@ namespace AnimarsCatcher
         Idle=1,
         Follow=2,
         Shoot=3,
+        Find=4
     }
 
     public class BLASTER_Ani : MonoBehaviour
@@ -33,6 +34,9 @@ namespace AnimarsCatcher
         
         public Transform GunTrans;
 
+        //destination
+        public Vector3 Destination;
+
         private void Awake()
         {
             mAnimator = GetComponent<Animator>();
@@ -45,6 +49,10 @@ namespace AnimarsCatcher
             mStateMachine.AddState(followState);
             BlasterAni_Shoot shootState = new BlasterAni_Shoot((int) BlasterAniState.Shoot, this);
             mStateMachine.AddState(shootState);
+            BlasterAni_Find findState = new BlasterAni_Find((int)BlasterAniState.Find, this);
+            mStateMachine.AddState(findState);
+
+            Destination = transform.position;
         }
 
         private void Update()

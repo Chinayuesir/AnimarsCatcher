@@ -30,7 +30,7 @@ namespace AnimarsCatcher
 
         private void FollowPlayer()
         {
-            if (Vector3.Distance(Owner.transform.position, mPlayerTrans.position)
+            if (Vector3.Distance(Owner.transform.position, Owner.Destination)
                 <= mNavmeshAgent.stoppingDistance)
             {
                 mNavmeshAgent.isStopped = true;
@@ -40,7 +40,9 @@ namespace AnimarsCatcher
             {
                 mNavmeshAgent.isStopped = false;
                 mAnimator.SetFloat(AniSpeed,10f);
-                mNavmeshAgent.destination = mPlayerTrans.position;
+                //mNavmeshAgent.destination = mPlayerTrans.position;
+
+                mNavmeshAgent.destination = Owner.Destination;
             }
         }
     }

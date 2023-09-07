@@ -5,6 +5,7 @@ namespace AnimarsCatcher
     public class PickerAni_Carry:PickerAniStateBase
     {
         private Vector3 mTargetPosition;
+
         public PickerAni_Carry(int id, PICKER_Ani o) : base(id, o)
         {
         }
@@ -23,7 +24,11 @@ namespace AnimarsCatcher
                 Owner.transform.position = mTargetPosition;
                 Owner.transform.forward = Owner.PickableItem.transform.forward;
                 mAnimator.SetFloat(AniSpeed,3f);
-            }else if (!Owner.IsPick && !Owner.ReadyToCarry)
+
+                Owner.LeftHandIKTrans.position = Owner.PickableItem.transform.position;
+                Owner.RightHandIKTrans.position = Owner.PickableItem.transform.position;
+            }
+            else if (!Owner.IsPick && !Owner.ReadyToCarry)
             {
                 mAnimator.SetFloat(AniSpeed,0f);
                 StateMachine.TranslateState((int)PickerAniState.Follow);

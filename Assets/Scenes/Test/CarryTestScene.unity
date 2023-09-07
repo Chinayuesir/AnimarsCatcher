@@ -381,6 +381,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKER_Ani
       objectReference: {fileID: 0}
+    - target: {fileID: 3490176257292295292, guid: d9794363553f5394cbbda4b1795c4ab7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4989952574168294282, guid: d9794363553f5394cbbda4b1795c4ab7,
         type: 3}
       propertyPath: m_RootOrder

@@ -18,6 +18,11 @@ namespace AnimarsCatcher
 
     public class PICKER_Ani : MonoBehaviour
     {
+        public Transform LeftHandIKTrans;
+        public Transform RightHandIKTrans;
+
+        private Animator mAnimator;
+
         //State Machine
         private StateMachine mStateMachine;
         
@@ -26,7 +31,15 @@ namespace AnimarsCatcher
         public bool IsPick = false;
         public bool ReadyToCarry = false;
         public PickableItem PickableItem;
-        
+
+        //destination
+        public Vector3 Destination;
+
+        private void Awake()
+        {
+            mAnimator = GetComponent<Animator>();
+        }
+
         private void Start()
         {
             mStateMachine = new StateMachine(new PickerAni_Idle((int) PickerAniState.Idle, this));
@@ -36,11 +49,33 @@ namespace AnimarsCatcher
             mStateMachine.AddState(pickState);
             PickerAni_Carry carryState = new PickerAni_Carry((int) PickerAniState.Carry, this);
             mStateMachine.AddState(carryState);
+
+            Destination = transform.position;
+
+            LeftHandIKTrans = new GameObject(name + "_LeftHandEffector").transform;
+            RightHandIKTrans = new GameObject(name + "_RightHandEffector").transform;
+            LeftHandIKTrans.parent = transform;
+            RightHandIKTrans.parent = transform;
         }
 
         private void Update()
         {
             mStateMachine.Update();
+        }
+
+        private void OnAnimatorIK(int layerIndex)
+        {
+            if (mStateMachine.CurrentState.ID == (int)PickerAniState.Carry)
+            {
+                mAnimator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandIKTrans.position);
+                mAnimator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandIKTrans.rotation);
+                mAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1f);
+                mAnimator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1f);
+                mAnimator.SetIKPosition(AvatarIKGoal.RightHand, RightHandIKTrans.position);
+                mAnimator.SetIKRotation(AvatarIKGoal.RightHand, RightHandIKTrans.rotation);
+                mAnimator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f);
+                mAnimator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1f);
+            }
         }
     }
 }

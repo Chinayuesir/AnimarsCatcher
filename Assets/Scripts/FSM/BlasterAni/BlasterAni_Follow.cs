@@ -13,8 +13,19 @@ namespace AnimarsCatcher
             FollowPlayer();
             if (Owner.IsShoot)
             {
-                if(Owner.FragileItem!=null && Owner.FragileItem.CheckCanShoot(Owner.GunTrans.position))
-                    StateMachine.TranslateState((int)BlasterAniState.Shoot);
+                //if(Owner.FragileItem!=null && Owner.FragileItem.CheckCanShoot(Owner.GunTrans.position))
+                //    StateMachine.TranslateState((int)BlasterAniState.Shoot);
+                if (Owner.FragileItem != null)
+                {
+                    if (Owner.FragileItem.CheckCanShoot(Owner.GunTrans.position))
+                    {
+                        StateMachine.TranslateState((int)BlasterAniState.Shoot);
+                    }
+                    else
+                    {
+                        StateMachine.TranslateState((int)BlasterAniState.Find);
+                    }
+                }
                 else
                 {
                     StateMachine.TranslateState((int)BlasterAniState.Follow);
@@ -26,7 +37,7 @@ namespace AnimarsCatcher
 
         private void FollowPlayer()
         {
-            if (Vector3.Distance(Owner.transform.position, mPlayerTrans.position)
+            if (Vector3.Distance(Owner.transform.position, Owner.Destination)
                 <= mNavmeshAgent.stoppingDistance)
             {
                 mNavmeshAgent.isStopped = true;
@@ -36,7 +47,10 @@ namespace AnimarsCatcher
             {
                 mNavmeshAgent.isStopped = false;
                 mAnimator.SetFloat(AniSpeed,10f);
-                mNavmeshAgent.destination = mPlayerTrans.position;
+
+                // assign destination
+                //mNavmeshAgent.destination = mPlayerTrans.position;
+                mNavmeshAgent.destination = Owner.Destination;
             }
         }
     }

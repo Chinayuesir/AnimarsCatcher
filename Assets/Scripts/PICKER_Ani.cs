@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace AnimarsCatcher
 {
-    public class PICKER_Ani : MonoBehaviour
+    public class PICKER_Ani1 : MonoBehaviour
     {
         private Animator mAnimator;
         private bool mCanMove;

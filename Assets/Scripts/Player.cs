@@ -26,6 +26,8 @@ namespace AnimarsCatcher
         
         //MainCamera
         private Camera mMainCamera;
+
+        private Dictionary<Transform, int> mAniIndex = new();
         
 
         private void Awake()
@@ -59,6 +61,7 @@ namespace AnimarsCatcher
         private void FixedUpdate()
         {
             RobotMove();
+            SetDestinations();
         }
 
         private void RobotMove()
@@ -75,6 +78,18 @@ namespace AnimarsCatcher
             mCharacterController.SimpleMove(speed);
         }
 
+        private void SetDestinations()
+        {
+            foreach (var ani in mPickerAniList)
+            {
+                ani.Destination = FollowUtility.GetFollowerDestination(transform, mAniIndex[ani.transform]);
+            }
+            foreach (var ani in mBlasterAniList)
+            {
+                ani.Destination = FollowUtility.GetFollowerDestination(transform, mAniIndex[ani.transform]);
+            }
+        }
+
         private void GetControlAnis()
         {
             Collider[] hitColliders = new Collider[50];
@@ -89,6 +104,9 @@ namespace AnimarsCatcher
                         mPickerAniList.Add(pickerAni);
                         FindObjectOfType<GameRoot>().GameModel.InTeamPickerAniCount.Value++;
                         pickerAni.IsFollow = true;
+
+                        // ani index
+                        mAniIndex.Add(pickerAni.transform, mAniIndex.Count);
                     }
                 }else if (hitColliders[i].CompareTag("BLASTER_Ani"))
                 {
@@ -98,6 +116,9 @@ namespace AnimarsCatcher
                         mBlasterAniList.Add(blasterAni);
                         FindObjectOfType<GameRoot>().GameModel.InTeamBlasterAniCount.Value++;
                         blasterAni.IsFollow = true;
+
+                        // ani index
+                        mAniIndex.Add(blasterAni.transform, mAniIndex.Count);
                     }
                 }
             }
@@ -143,7 +164,7 @@ namespace AnimarsCatcher
             {
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit,50f))
+                if (Physics.Raycast(ray, out hit,100f))
                 {
                     if (hit.collider.CompareTag("FragileItem"))
                     {
