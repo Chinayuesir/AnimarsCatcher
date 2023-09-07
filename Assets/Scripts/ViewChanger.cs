@@ -1,41 +1,37 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class ViewChanger : MonoBehaviour
 {
-    public GameObject firstPersonCamera;
-    public GameObject thirdPersonCamera;
+    public CinemachineVirtualCameraBase FirstPersonCamera;
+    public CinemachineVirtualCameraBase ThirdPersonCamera;
 
-    private bool mIsThirdView;
+    private bool mIsThirdView=true;
 
-    private void Start()
+    private void Awake()
     {
-        EnableThirdView();
+        FirstPersonCamera.Priority = 10;
+        ThirdPersonCamera.Priority = 20;
     }
-
-    public void EnableFirstView()
-    {
-        firstPersonCamera.SetActive(true);
-        thirdPersonCamera.SetActive(false);
-    }
-
-    public void EnableThirdView()
-    {
-        firstPersonCamera.SetActive(false);
-        thirdPersonCamera.SetActive(true);
-    }
-
+    
     private void Update()
     {
-        // Test
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.F1))
         {
             mIsThirdView = !mIsThirdView;
             if (mIsThirdView)
-                EnableThirdView();
+            {
+                FirstPersonCamera.Priority = 10;
+                ThirdPersonCamera.Priority = 20;
+            }
             else
-                EnableFirstView();
+            {
+                FirstPersonCamera.Priority = 20;
+                ThirdPersonCamera.Priority = 10;
+            }
         }
     }
 }
