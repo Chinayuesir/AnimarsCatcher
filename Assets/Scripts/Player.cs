@@ -14,6 +14,9 @@ namespace AnimarsCatcher
 
         public GameObject TargetPosGo;
 
+        //Smoke
+        public GameObject SmokeFXGo;
+
         private float mCurrentRadius;
         private Vector3 mTargetPos;
         private bool mRightMouseButton;
@@ -28,6 +31,8 @@ namespace AnimarsCatcher
         private Camera mMainCamera;
 
         private Dictionary<Transform, int> mAniIndex = new();
+
+        
         
 
         private void Awake()
@@ -76,6 +81,8 @@ namespace AnimarsCatcher
                 transform.forward = Vector3.Lerp(transform.forward, targetDirection, 10f * Time.deltaTime);
             var speed = targetDirection * MoveSpeed;
             mCharacterController.SimpleMove(speed);
+            SmokeFXGo.SetActive(speed.sqrMagnitude > 0f);
+            SmokeFXGo.transform.forward = -speed;
         }
 
         private void SetDestinations()
