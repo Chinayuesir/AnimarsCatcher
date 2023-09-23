@@ -5331,37 +5331,6 @@ Transform:
   m_Father: {fileID: 6169177807987435194}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5201307436689956551
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7574197150920046139}
-  m_Layer: 0
-  m_Name: GunTrans
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7574197150920046139
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5201307436689956551}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.32, z: 1.56}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2937466211808263992}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5208108354114288757
 GameObject:
   m_ObjectHideFlags: 0
@@ -9136,9 +9105,8 @@ Transform:
   - {fileID: 7265260220157603119}
   - {fileID: 5808535170519233412}
   - {fileID: 4495061747606160776}
-  - {fileID: 7574197150920046139}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8679497521785161202
 Animator:
@@ -9175,10 +9143,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LeftHandIKTrans: {fileID: 5808535170519233412}
   RightHandIKTrans: {fileID: 4495061747606160776}
-  IsFollow: 0
-  IsShoot: 0
-  FragileItem: {fileID: 0}
-  GunTrans: {fileID: 7574197150920046139}
 --- !u!54 &4848697848478907697
 Rigidbody:
   m_ObjectHideFlags: 0

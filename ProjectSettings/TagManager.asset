@@ -9,8 +9,11 @@ TagManager:
   - Plane
   - Home
   - PickableItem
+<<<<<<< HEAD
   - FragileItem
   - Blueprint
+=======
+>>>>>>> parent of 9723e04 (Chapter6 demo version)
   layers:
   - Default
   - TransparentFX

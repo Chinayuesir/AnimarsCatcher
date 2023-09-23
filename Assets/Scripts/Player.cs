@@ -55,7 +55,6 @@ namespace AnimarsCatcher
                 mRightMouseButton = false;
             }
             AssignAniToCarry();
-            AssignAniToShoot();
             
             mCurrentRadius = Mathf.Lerp(mCurrentRadius, mRightMouseButton ? ControlRadiusMax : ControlRadiusMin,
                 Time.deltaTime * 10f);
@@ -118,14 +117,18 @@ namespace AnimarsCatcher
                 }else if (hitColliders[i].CompareTag("BLASTER_Ani"))
                 {
                     var blasterAni = hitColliders[i].GetComponent<BLASTER_Ani>();
-                    if (!mBlasterAniList.Contains(blasterAni))
+                    if (mBlasterAniList.Contains(blasterAni))
                     {
+<<<<<<< HEAD
                         mBlasterAniList.Add(blasterAni);
                         FindObjectOfType<GameRoot>().GameModel.InTeamBlasterAniCount.Value++;
                         blasterAni.IsFollow = true;
 
                         // ani index
                         mAniIndex.Add(blasterAni.transform, mAniIndex.Count);
+=======
+                        mBlasterAniList.Add(hitColliders[i].GetComponent<BLASTER_Ani>());
+>>>>>>> parent of 9723e04 (Chapter6 demo version)
                     }
                 }
             }
@@ -165,6 +168,7 @@ namespace AnimarsCatcher
             return null;
         }
 
+<<<<<<< HEAD
         private void AssignAniToShoot()
         {
             if (Input.GetMouseButtonDown(0))
@@ -198,6 +202,14 @@ namespace AnimarsCatcher
             return null;
         }
         
+=======
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(mTargetPos,mCurrentRadius);
+        }
+
+>>>>>>> parent of 9723e04 (Chapter6 demo version)
         private Vector3 GetMouseWorldPos()
         {
             Ray ray = mMainCamera.ScreenPointToRay(Input.mousePosition);

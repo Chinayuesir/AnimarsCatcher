@@ -35,6 +35,7 @@ namespace AnimarsCatcher
             {
                 mNavmeshAgent.isStopped = true;
                 mAnimator.SetFloat(AniSpeed,0f);
+                StateMachine.TranslateState((int)PickerAniState.Idle);
             }
             else
             {

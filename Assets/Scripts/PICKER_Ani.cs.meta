@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 34e6c2d05b3888f439e8972de2f113ff
+=======
+guid: b2a91beae94548dfa4ace719b756297b
+>>>>>>> parent of 9723e04 (Chapter6 demo version)
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

@@ -13,10 +13,9 @@ GameObject:
   - component: {fileID: 3890352398066934746}
   - component: {fileID: 5815462419739850618}
   - component: {fileID: 6730530875056478456}
-  - component: {fileID: 2001123534905841811}
   m_Layer: 0
   m_Name: FragileRock
-  m_TagString: FragileItem
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,6 +124,7 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.53400004, y: 5.827, z: 0.272}
   m_TimeToStationary: 0.5
+<<<<<<< HEAD
 --- !u!114 &2001123534905841811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,3 +300,5 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 5759855685433981352}
   m_PrefabAsset: {fileID: 0}
+=======
+>>>>>>> parent of 9723e04 (Chapter6 demo version)

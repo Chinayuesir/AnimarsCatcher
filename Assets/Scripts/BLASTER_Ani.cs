@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using AnimarsCatcher.FSM;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace AnimarsCatcher
 {
+<<<<<<< HEAD:Assets/Scripts/FSM/BlasterAni/BLASTER_Ani.cs
     public enum BlasterAniState
     {
         None=0,
@@ -16,12 +16,15 @@ namespace AnimarsCatcher
         Find=4
     }
 
+=======
+>>>>>>> parent of 9723e04 (Chapter6 demo version):Assets/Scripts/BLASTER_Ani.cs
     public class BLASTER_Ani : MonoBehaviour
     {
         public Transform LeftHandIKTrans;
         public Transform RightHandIKTrans;
         
         private Animator mAnimator;
+<<<<<<< HEAD:Assets/Scripts/FSM/BlasterAni/BLASTER_Ani.cs
 
         //StateMachine
         private StateMachine mStateMachine;
@@ -33,6 +36,14 @@ namespace AnimarsCatcher
         private static readonly int Shoot1 = Animator.StringToHash("Shoot");
         
         public Transform GunTrans;
+=======
+        private NavMeshAgent mAgent;
+        
+        private bool mCanMove;
+        private Vector3 mTargetPos;
+        private float mAniSpeed = 5f;
+        private static readonly int AniSpeed = Animator.StringToHash("AniSpeed");
+>>>>>>> parent of 9723e04 (Chapter6 demo version):Assets/Scripts/BLASTER_Ani.cs
 
         //destination
         public Vector3 Destination;
@@ -40,6 +51,7 @@ namespace AnimarsCatcher
         private void Awake()
         {
             mAnimator = GetComponent<Animator>();
+<<<<<<< HEAD:Assets/Scripts/FSM/BlasterAni/BLASTER_Ani.cs
         }
 
         private void Start()
@@ -53,15 +65,29 @@ namespace AnimarsCatcher
             mStateMachine.AddState(findState);
 
             Destination = transform.position;
+=======
+            mAgent = GetComponent<NavMeshAgent>();
+>>>>>>> parent of 9723e04 (Chapter6 demo version):Assets/Scripts/BLASTER_Ani.cs
         }
 
         private void Update()
         {
-           mStateMachine.Update();
+            if (mCanMove)
+            {
+                mAnimator.SetFloat(AniSpeed,mAniSpeed);
+                mAgent.SetDestination(mTargetPos);
+                
+                if (Vector3.Distance(transform.position, mTargetPos) < mAgent.stoppingDistance)
+                {
+                    mCanMove = false;
+                    mAnimator.SetFloat(AniSpeed,0);
+                }
+            }
         }
 
-        public void Shoot()
+        public void SetMoveTargetPos(Vector3 targetPos)
         {
+<<<<<<< HEAD:Assets/Scripts/FSM/BlasterAni/BLASTER_Ani.cs
             if (FragileItem != null)
             {
                 mAnimator.SetTrigger(Shoot1);
@@ -71,6 +97,10 @@ namespace AnimarsCatcher
                 go.transform.position = GunTrans.position;
                 go.transform.rotation = dir;
             }
+=======
+            mCanMove = true;
+            mTargetPos = targetPos;
+>>>>>>> parent of 9723e04 (Chapter6 demo version):Assets/Scripts/BLASTER_Ani.cs
         }
 
         private void OnAnimatorIK(int layerIndex)
