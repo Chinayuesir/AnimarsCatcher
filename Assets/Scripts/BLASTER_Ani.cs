@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 namespace AnimarsCatcher
 {
+<<<<<<< HEAD
 <<<<<<< HEAD:Assets/Scripts/FSM/BlasterAni/BLASTER_Ani.cs
     public enum BlasterAniState
     {
@@ -18,12 +19,15 @@ namespace AnimarsCatcher
 
 =======
 >>>>>>> parent of 9723e04 (Chapter6 demo version):Assets/Scripts/BLASTER_Ani.cs
+=======
+>>>>>>> parent of 9723e04 (Chapter6 demo version)
     public class BLASTER_Ani : MonoBehaviour
     {
         public Transform LeftHandIKTrans;
         public Transform RightHandIKTrans;
         
         private Animator mAnimator;
+<<<<<<< HEAD
 <<<<<<< HEAD:Assets/Scripts/FSM/BlasterAni/BLASTER_Ani.cs
 
         //StateMachine
@@ -37,20 +41,26 @@ namespace AnimarsCatcher
         
         public Transform GunTrans;
 =======
+=======
+>>>>>>> parent of 9723e04 (Chapter6 demo version)
         private NavMeshAgent mAgent;
         
         private bool mCanMove;
         private Vector3 mTargetPos;
         private float mAniSpeed = 5f;
         private static readonly int AniSpeed = Animator.StringToHash("AniSpeed");
+<<<<<<< HEAD
 >>>>>>> parent of 9723e04 (Chapter6 demo version):Assets/Scripts/BLASTER_Ani.cs
 
         //destination
         public Vector3 Destination;
+=======
+>>>>>>> parent of 9723e04 (Chapter6 demo version)
 
         private void Awake()
         {
             mAnimator = GetComponent<Animator>();
+<<<<<<< HEAD
 <<<<<<< HEAD:Assets/Scripts/FSM/BlasterAni/BLASTER_Ani.cs
         }
 
@@ -68,6 +78,9 @@ namespace AnimarsCatcher
 =======
             mAgent = GetComponent<NavMeshAgent>();
 >>>>>>> parent of 9723e04 (Chapter6 demo version):Assets/Scripts/BLASTER_Ani.cs
+=======
+            mAgent = GetComponent<NavMeshAgent>();
+>>>>>>> parent of 9723e04 (Chapter6 demo version)
         }
 
         private void Update()
@@ -87,6 +100,7 @@ namespace AnimarsCatcher
 
         public void SetMoveTargetPos(Vector3 targetPos)
         {
+<<<<<<< HEAD
 <<<<<<< HEAD:Assets/Scripts/FSM/BlasterAni/BLASTER_Ani.cs
             if (FragileItem != null)
             {
@@ -101,6 +115,10 @@ namespace AnimarsCatcher
             mCanMove = true;
             mTargetPos = targetPos;
 >>>>>>> parent of 9723e04 (Chapter6 demo version):Assets/Scripts/BLASTER_Ani.cs
+=======
+            mCanMove = true;
+            mTargetPos = targetPos;
+>>>>>>> parent of 9723e04 (Chapter6 demo version)
         }
 
         private void OnAnimatorIK(int layerIndex)

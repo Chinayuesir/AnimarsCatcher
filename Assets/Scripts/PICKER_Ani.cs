@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,8 @@ namespace AnimarsCatcher
 
         
 =======
+=======
+>>>>>>> parent of 9723e04 (Chapter6 demo version)
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,6 +38,7 @@ namespace AnimarsCatcher
 
     public class PICKER_Ani : MonoBehaviour
     {
+<<<<<<< HEAD
         public Transform LeftHandIKTrans;
         public Transform RightHandIKTrans;
 
@@ -43,11 +47,20 @@ namespace AnimarsCatcher
         //State Machine
         private StateMachine mStateMachine;
         
+=======
+        //State Machine
+        private StateMachine mStateMachine;
+        
+        private float mAniSpeed = 5f;
+        private static readonly int AniSpeed = Animator.StringToHash("AniSpeed");
+        
+>>>>>>> parent of 9723e04 (Chapter6 demo version)
         //get from Player.cs
         public bool IsFollow=false;
         public bool IsPick = false;
         public bool ReadyToCarry = false;
         public PickableItem PickableItem;
+<<<<<<< HEAD
 
         //destination
         public Vector3 Destination;
@@ -83,6 +96,9 @@ namespace AnimarsCatcher
             mCanMove = true;
             mTargetPos = targetPos;
 =======
+=======
+        
+>>>>>>> parent of 9723e04 (Chapter6 demo version)
         private void Start()
         {
             mStateMachine = new StateMachine(new PickerAni_Idle((int) PickerAniState.Idle, this));
@@ -92,6 +108,7 @@ namespace AnimarsCatcher
             mStateMachine.AddState(pickState);
             PickerAni_Carry carryState = new PickerAni_Carry((int) PickerAniState.Carry, this);
             mStateMachine.AddState(carryState);
+<<<<<<< HEAD
 
             Destination = transform.position;
 
@@ -99,12 +116,15 @@ namespace AnimarsCatcher
             RightHandIKTrans = new GameObject(name + "_RightHandEffector").transform;
             LeftHandIKTrans.parent = transform;
             RightHandIKTrans.parent = transform;
+=======
+>>>>>>> parent of 9723e04 (Chapter6 demo version)
         }
 
         private void Update()
         {
             mStateMachine.Update();
         }
+<<<<<<< HEAD
 
         private void OnAnimatorIK(int layerIndex)
         {
@@ -121,5 +141,7 @@ namespace AnimarsCatcher
             }
 >>>>>>> parent of 9723e04 (Chapter6 demo version)
         }
+=======
+>>>>>>> parent of 9723e04 (Chapter6 demo version)
     }
 }

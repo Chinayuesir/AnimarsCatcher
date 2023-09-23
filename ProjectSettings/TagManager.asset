@@ -10,8 +10,11 @@ TagManager:
   - Home
   - PickableItem
 <<<<<<< HEAD
+<<<<<<< HEAD
   - FragileItem
   - Blueprint
+=======
+>>>>>>> parent of 9723e04 (Chapter6 demo version)
 =======
 >>>>>>> parent of 9723e04 (Chapter6 demo version)
   layers:

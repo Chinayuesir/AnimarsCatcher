@@ -120,12 +120,16 @@ namespace AnimarsCatcher
                     if (mBlasterAniList.Contains(blasterAni))
                     {
 <<<<<<< HEAD
+<<<<<<< HEAD
                         mBlasterAniList.Add(blasterAni);
                         FindObjectOfType<GameRoot>().GameModel.InTeamBlasterAniCount.Value++;
                         blasterAni.IsFollow = true;
 
                         // ani index
                         mAniIndex.Add(blasterAni.transform, mAniIndex.Count);
+=======
+                        mBlasterAniList.Add(hitColliders[i].GetComponent<BLASTER_Ani>());
+>>>>>>> parent of 9723e04 (Chapter6 demo version)
 =======
                         mBlasterAniList.Add(hitColliders[i].GetComponent<BLASTER_Ani>());
 >>>>>>> parent of 9723e04 (Chapter6 demo version)
@@ -169,6 +173,7 @@ namespace AnimarsCatcher
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         private void AssignAniToShoot()
         {
             if (Input.GetMouseButtonDown(0))
@@ -203,6 +208,8 @@ namespace AnimarsCatcher
         }
         
 =======
+=======
+>>>>>>> parent of 9723e04 (Chapter6 demo version)
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;

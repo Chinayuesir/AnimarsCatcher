@@ -125,6 +125,7 @@ NavMeshObstacle:
   m_Center: {x: 0.53400004, y: 5.827, z: 0.272}
   m_TimeToStationary: 0.5
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!114 &2001123534905841811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,5 +301,7 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 5759855685433981352}
   m_PrefabAsset: {fileID: 0}
+=======
+>>>>>>> parent of 9723e04 (Chapter6 demo version)
 =======
 >>>>>>> parent of 9723e04 (Chapter6 demo version)
