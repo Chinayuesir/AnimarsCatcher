@@ -23,6 +23,9 @@ namespace AnimarsCatcher
                 Owner.transform.position = mTargetPosition;
                 Owner.transform.forward = Owner.PickableItem.transform.forward;
                 mAnimator.SetFloat(AniSpeed,3f);
+
+                Owner.LeftHandEffector.position = mTargetPosition;
+                Owner.RightHandEffector.position = mTargetPosition;
             }else if (!Owner.IsPick && !Owner.ReadyToCarry)
             {
                 mAnimator.SetFloat(AniSpeed,0f);

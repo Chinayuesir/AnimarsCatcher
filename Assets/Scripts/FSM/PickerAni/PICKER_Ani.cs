@@ -32,7 +32,17 @@ namespace AnimarsCatcher
 
         // Group Behaviour
         public Vector3 Destination;
-        
+
+        // IK
+        private Animator mAnimator;
+        public Transform LeftHandEffector;
+        public Transform RightHandEffector;
+
+        private void Awake()
+        {
+            mAnimator = GetComponent<Animator>();
+        }
+
         private void Start()
         {
             mStateMachine = new StateMachine(new PickerAni_Idle((int) PickerAniState.Idle, this));
@@ -42,11 +52,32 @@ namespace AnimarsCatcher
             mStateMachine.AddState(pickState);
             PickerAni_Carry carryState = new PickerAni_Carry((int) PickerAniState.Carry, this);
             mStateMachine.AddState(carryState);
+
+            // Generate Hand Effectors
+            LeftHandEffector = new GameObject("LeftHandEffector").transform;
+            LeftHandEffector.parent = transform;
+            RightHandEffector = new GameObject("RightHandEffector").transform;
+            RightHandEffector.parent = transform;
         }
 
         private void Update()
         {
             mStateMachine.Update();
+        }
+
+        private void OnAnimatorIK(int layerIndex)
+        {
+            if (mStateMachine.CurrentState.ID == (int)PickerAniState.Carry)
+            {
+                mAnimator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandEffector.position);
+                mAnimator.SetIKPosition(AvatarIKGoal.RightHand, RightHandEffector.position);
+                mAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1f);
+                mAnimator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f);
+                mAnimator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandEffector.rotation);
+                mAnimator.SetIKRotation(AvatarIKGoal.RightHand, RightHandEffector.rotation);
+                mAnimator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1f);
+                mAnimator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1f);
+            }
         }
     }
 }
