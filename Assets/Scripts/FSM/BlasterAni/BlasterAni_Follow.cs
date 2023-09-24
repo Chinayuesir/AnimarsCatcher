@@ -14,7 +14,19 @@ namespace AnimarsCatcher
             if (Owner.IsShoot)
             {
                 if(Owner.FragileItem!=null && Owner.FragileItem.CheckCanShoot(Owner.GunTrans.position))
-                    StateMachine.TranslateState((int)BlasterAniState.Shoot);
+                {
+                    if(Owner.FragileItem != null)
+                    {
+                        if (Owner.FragileItem.CheckCanShoot(Owner.GunTrans.position))
+                        {
+                            StateMachine.TranslateState((int)BlasterAniState.Shoot);
+                        }
+                        else
+                        {
+                            StateMachine.TranslateState((int)BlasterAniState.Find);
+                        }
+                    }
+                }
                 else
                 {
                     StateMachine.TranslateState((int)BlasterAniState.Follow);

@@ -13,6 +13,7 @@ namespace AnimarsCatcher
         Idle=1,
         Follow=2,
         Shoot=3,
+        Find=4
     }
 
     public class BLASTER_Ani : MonoBehaviour
