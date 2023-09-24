@@ -26,7 +26,9 @@ namespace AnimarsCatcher
         
         //MainCamera
         private Camera mMainCamera;
-        
+
+        // Group Behaviour
+        private Dictionary<Transform, int> mIndex = new();
 
         private void Awake()
         {
@@ -58,6 +60,7 @@ namespace AnimarsCatcher
         private void FixedUpdate()
         {
             RobotMove();
+            SetDestinations();
         }
 
         private void RobotMove()
@@ -88,6 +91,7 @@ namespace AnimarsCatcher
                     {
                         mPickerAniList.Add(pickerAni);
                         pickerAni.IsFollow = true;
+                        mIndex.Add(pickerAni.transform, mIndex.Count);
                     }
                 }else if (hitColliders[i].CompareTag("BLASTER_Ani"))
                 {
@@ -96,6 +100,7 @@ namespace AnimarsCatcher
                     {
                         mBlasterAniList.Add(blasterAni);
                         blasterAni.IsFollow = true;
+                        mIndex.Add(blasterAni.transform, mIndex.Count);
                     }
                 }
             }
@@ -184,6 +189,11 @@ namespace AnimarsCatcher
             return Vector3.zero;
         }
         
+        private void SetDestinations()
+        {
+            mPickerAniList.ForEach(item => item.Destination = FollowUtility.RectArrange(transform, mIndex[item.transform]));
+            mBlasterAniList.ForEach(item => item.Destination = FollowUtility.RectArrange(transform, mIndex[item.transform]));
+        }
     }
 }
 

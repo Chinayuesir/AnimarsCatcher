@@ -29,6 +29,9 @@ namespace AnimarsCatcher
         public bool IsPick = false;
         public bool ReadyToCarry = false;
         public PickableItem PickableItem;
+
+        // Group Behaviour
+        public Vector3 Destination;
         
         private void Start()
         {

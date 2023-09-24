@@ -35,6 +35,9 @@ namespace AnimarsCatcher
 
         public Transform GunTrans;
 
+        // Group Behaviours
+        public Vector3 Destination;
+
         private void Awake()
         {
             mAnimator = GetComponent<Animator>();
