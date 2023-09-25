@@ -32,6 +32,9 @@ namespace AnimarsCatcher
         // Group Behaviour
         private Dictionary<Transform, int> mIndex = new();
 
+        // Smoke
+        public GameObject FXSmoke;
+
         private void Awake()
         {
             mRigidbody = GetComponent<Rigidbody>();
@@ -80,6 +83,8 @@ namespace AnimarsCatcher
             var speed = targetDirection * MoveSpeed;
             //mRigidbody.velocity = speed;
             mCharacterController.SimpleMove(speed);
+
+            SetSmoke(speed);
         }
 
         private void GetControlAnis()
@@ -193,6 +198,12 @@ namespace AnimarsCatcher
         {
             mPickerAniList.ForEach(item => item.Destination = FollowUtility.RectArrange(transform, mIndex[item.transform]));
             mBlasterAniList.ForEach(item => item.Destination = FollowUtility.RectArrange(transform, mIndex[item.transform]));
+        }
+
+        private void SetSmoke(Vector3 speed)
+        {
+            FXSmoke.SetActive(speed.sqrMagnitude > 0f);
+            FXSmoke.transform.forward = -speed;
         }
     }
 }
