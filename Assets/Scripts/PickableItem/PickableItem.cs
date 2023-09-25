@@ -21,12 +21,16 @@ namespace AnimarsCatcher
         private NavMeshAgent mTeamAgent;
         private Transform mHomeTransform;
 
+        private LayerMask mLayerMask;
+
         private void Awake()
         {
             mAnis = new List<PICKER_Ani>();
             mTeamAgent = GetComponent<NavMeshAgent>();
             mTeamAgent.enabled = false;
             mHomeTransform = GameObject.FindWithTag("Home").transform;
+
+            mLayerMask = gameObject.layer;
         }
 
         private void Update()
@@ -80,6 +84,16 @@ namespace AnimarsCatcher
         {
             mAnis.Add(pickerAni);
             CurrentAniCount++;
+        }
+
+        private void OnMouseEnter()
+        {
+            gameObject.layer = LayerMask.NameToLayer("SelectedObject");
+        }
+
+        private void OnMouseExit()
+        {
+            gameObject.layer = mLayerMask;
         }
     }
 }

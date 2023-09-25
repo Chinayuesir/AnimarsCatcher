@@ -60,7 +60,13 @@ namespace AnimarsCatcher
 
         public void Shoot()
         {
-            mAnimator.SetTrigger(Shoot1);
+            if (FragileItem != null) 
+            {
+                mAnimator.SetTrigger(Shoot1);
+                Vector3 offset = FragileItem.transform.position - transform.position;
+                Quaternion dir = Quaternion.LookRotation(offset);
+                Instantiate(Resources.Load<GameObject>("FX_Beam"), GunTrans.position, dir);
+            }
         }
 
         private void OnAnimatorIK(int layerIndex)

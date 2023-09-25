@@ -16,10 +16,13 @@ namespace AnimarsCatcher
         private LayerMask mMask;
         public bool IsDestroyed = false;
 
+        private LayerMask mSelfLayerMask;
+
         private void Awake()
         {
             mMask = (1 << LayerMask.NameToLayer("Ani")) | (1 << LayerMask.NameToLayer("Player"));
             mMask = ~mMask;
+            mSelfLayerMask = gameObject.layer;
         }
 
         public bool CheckCanShoot(Vector3 position)
@@ -34,6 +37,16 @@ namespace AnimarsCatcher
         public bool HasDestroyed()
         {
             return IsDestroyed;
+        }
+
+        private void OnMouseEnter()
+        {
+            gameObject.layer = LayerMask.NameToLayer("SelectedObject");
+        }
+
+        private void OnMouseExit()
+        {
+            gameObject.layer = mSelfLayerMask;
         }
     }
 }

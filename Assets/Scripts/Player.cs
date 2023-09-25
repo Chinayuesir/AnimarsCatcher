@@ -12,6 +12,8 @@ namespace AnimarsCatcher
         public float ControlRadiusMin = 0f;
         public float ControlRadiusMax = 5f;
 
+        public GameObject TargetPosGO;
+
         private float mCurrentRadius;
         private Vector3 mTargetPos;
         private bool mRightMouseButton;
@@ -55,6 +57,8 @@ namespace AnimarsCatcher
             
             mCurrentRadius = Mathf.Lerp(mCurrentRadius, mRightMouseButton ? ControlRadiusMax : ControlRadiusMin,
                 Time.deltaTime * 10f);
+            TargetPosGO.transform.position = GetMouseWorldPos();
+            TargetPosGO.transform.Find("Cylinder").localScale = Vector3.one * (2 * mCurrentRadius);
         }
 
         private void FixedUpdate()
@@ -112,7 +116,7 @@ namespace AnimarsCatcher
             {
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit))
+                if (Physics.Raycast(ray, out hit, 50f))
                 {
                     if (hit.collider.CompareTag("PickableItem"))
                     {
@@ -146,7 +150,7 @@ namespace AnimarsCatcher
             {
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit,30f))
+                if (Physics.Raycast(ray, out hit,50f))
                 {
                     if (hit.collider.CompareTag("FragileItem"))
                     {
@@ -173,11 +177,7 @@ namespace AnimarsCatcher
             return null;
         }
 
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(mTargetPos,mCurrentRadius);
-        }
+
 
         private Vector3 GetMouseWorldPos()
         {
