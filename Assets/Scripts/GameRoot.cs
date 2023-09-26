@@ -8,7 +8,8 @@ namespace AnimarsCatcher
 {
     public class GameRoot : MonoBehaviour
     {
-        private LevelInfo mInfo;
+        //private LevelInfo mInfo;
+        private DetailedLevelInfo mInfo;
         private Timer mTimer;
         private GameModel mGameModel;
         public GameModel GameModel => mGameModel;
@@ -42,8 +43,10 @@ namespace AnimarsCatcher
 
         private void Start()
         {
-            string json = File.ReadAllText(ResPath.LevelInfoJson);
-            mInfo = JsonUtility.FromJson<LevelInfo>(json);
+            //string json = File.ReadAllText(ResPath.LevelInfoJson);
+            //mInfo = JsonUtility.FromJson<LevelInfo>(json);
+            string json = File.ReadAllText(ResPath.DetailedInfoJson);
+            mInfo = JsonUtility.FromJson<DetailedLevelInfo>(json);
             if (mGameModel.HasSaveData())
             {
                 mGameModel.Load();
@@ -82,7 +85,7 @@ namespace AnimarsCatcher
         private void LoadLevel(int day)
         {
             Debug.Log($"load level day: {day}");
-            LevelData levelData = mInfo.LevelDatas[day - 1];
+            DetailedLevelData levelData = mInfo.LevelDatas[day - 1];
             LoadMap(levelData);
             StartCoroutine(SpawnAnis(levelData.PickerAniCount, levelData.BlasterAniCount));
             mGameModel.PickerAniCount.Value += levelData.PickerAniCount;
@@ -96,7 +99,7 @@ namespace AnimarsCatcher
         private void LoadLevelFromSaveData()
         {
             Debug.Log($"load level from savedata day: {mGameModel.Day}");
-            LevelData levelData = mInfo.LevelDatas[mGameModel.Day.Value - 1];
+            DetailedLevelData levelData = mInfo.LevelDatas[mGameModel.Day.Value - 1];
             LoadMap(levelData);
             StartCoroutine(SpawnAnis(mGameModel.PickerAniCount.Value, mGameModel.BlasterAniCount.Value));
             EnvironmentAnimator.Rebind();
@@ -111,6 +114,17 @@ namespace AnimarsCatcher
             MapManager.Instance.LoadItems(mapSize, levelData.FoodNum, 2, ResPath.FoodPrefabPath);
             MapManager.Instance.LoadItems(mapSize, levelData.CrystalNum, 2, ResPath.CrystalPrefabPath);
 
+        }
+
+        private void LoadMap(DetailedLevelData levelData)
+        {
+            foreach (var res in levelData.Resources)
+            {
+                Vector2 mapPosition = new(res.Area[0], res.Area[1]);
+                Vector2 mapSize = new(res.Area[2], res.Area[3]);
+                MapManager.Instance.LoadItems(mapPosition, mapSize, res.FoodNum, 2, ResPath.FoodPrefabPath);
+                MapManager.Instance.LoadItems(mapPosition, mapSize, res.CrystalNum, 2, ResPath.CrystalPrefabPath);
+            }
         }
 
         private void StartTimer(int seconds)

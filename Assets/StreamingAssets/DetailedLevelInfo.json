@@ -1,0 +1,116 @@
+﻿{
+  "LevelDatas": [
+    {
+      "Day": 1,
+      "Resources": [
+        {
+          "FoodNum": 5,
+          "CrystalNum": 0,
+          "Area": [ 0, 0, 100, 100 ]
+        },
+        {
+          "FoodNum": 4,
+          "CrystalNum": 0,
+          "Area": [ 0, 100, 100, 100 ]
+        },
+        {
+          "FoodNum": 3,
+          "CrystalNum": 0,
+          "Area": [ 100, 100, 100, 100 ]
+        },
+        {
+          "FoodNum": 2,
+          "CrystalNum": 0,
+          "Area": [ 100, 0, 100, 100 ]
+        }
+      ],
+      "PickerAniCount": 4,
+      "BlasterAniCount": 0,
+      "LevelTime": 60
+    },
+    {
+      "Day": 2,
+      "Resources": [
+        {
+          "FoodNum": 4,
+          "CrystalNum": 1,
+          "Area": [ 0, 0, 100, 100 ]
+        },
+        {
+          "FoodNum": 5,
+          "CrystalNum": 2,
+          "Area": [ 0, 100, 100, 100 ]
+        },
+        {
+          "FoodNum": 2,
+          "CrystalNum": 2,
+          "Area": [ 100, 100, 100, 100 ]
+        },
+        {
+          "FoodNum": 5,
+          "CrystalNum": 3,
+          "Area": [ 100, 0, 100, 100 ]
+        }
+      ],
+      "PickerAniCount": 0,
+      "BlasterAniCount": 1,
+      "LevelTime": 60
+    },
+    {
+      "Day": 3,
+      "Resources": [
+        {
+          "FoodNum": 7,
+          "CrystalNum": 3,
+          "Area": [ 0, 0, 100, 100 ]
+        },
+        {
+          "FoodNum": 8,
+          "CrystalNum": 2,
+          "Area": [ 0, 100, 100, 100 ]
+        },
+        {
+          "FoodNum": 5,
+          "CrystalNum": 1,
+          "Area": [ 100, 100, 100, 100 ]
+        },
+        {
+          "FoodNum": 6,
+          "CrystalNum": 0,
+          "Area": [ 100, 0, 100, 100 ]
+        }
+      ],
+      "PickerAniCount": 0,
+      "BlasterAniCount": 1,
+      "LevelTime": 60
+    },
+    {
+      "Day": 4,
+      "Resources": [
+        {
+          "FoodNum": 5,
+          "CrystalNum": 1,
+          "Area": [ 0, 0, 100, 100 ]
+        },
+        {
+          "FoodNum": 4,
+          "CrystalNum": 2,
+          "Area": [ 0, 100, 100, 100 ]
+        },
+        {
+          "FoodNum": 3,
+          "CrystalNum": 3,
+          "Area": [ 100, 100, 100, 100 ]
+        },
+        {
+          "FoodNum": 2,
+          "CrystalNum": 4,
+          "Area": [ 100, 0, 100, 100 ]
+        }
+      ],
+      "PickerAniCount": 2,
+      "BlasterAniCount": 1,
+      "LevelTime": 60
+    }
+  ]
+}
