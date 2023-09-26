@@ -65,7 +65,9 @@ namespace AnimarsCatcher
                 mAnimator.SetTrigger(Shoot1);
                 Vector3 offset = FragileItem.transform.position - transform.position;
                 Quaternion dir = Quaternion.LookRotation(offset);
-                Instantiate(Resources.Load<GameObject>("FX_Beam"), GunTrans.position, dir);
+                var go = PoolManager.Instance.BeamPool.Get();
+                go.transform.position = GunTrans.position;
+                go.transform.rotation = dir;
             }
         }
 

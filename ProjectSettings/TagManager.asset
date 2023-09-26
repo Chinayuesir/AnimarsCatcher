@@ -10,6 +10,7 @@ TagManager:
   - Home
   - PickableItem
   - FragileItem
+  - Blueprint
   layers:
   - Default
   - TransparentFX

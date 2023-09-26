@@ -16,13 +16,17 @@ namespace AnimarsCatcher
 
         public override void OnStay(params object[] args)
         {
-            if (FindPickableItem() && !Owner.ReadyToCarry)
+            if (mPickableItemTrans == null)
             {
-                Owner.PickableItem.AddPickerAni(Owner);
+                StateMachine.TranslateState((int)PickerAniState.Follow);
+            }
+
+            if (mPickableItemTrans != null && FindPickableItem() && !Owner.ReadyToCarry)
+            {
                 Owner.ReadyToCarry = true;
             }
 
-            if (Owner.PickableItem.CheckCanCarry())
+            if (mPickableItemTrans != null && Owner.PickableItem.CheckCanCarry() && Owner.ReadyToCarry)
             {
                 StateMachine.TranslateState((int)PickerAniState.Carry);
             }
