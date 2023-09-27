@@ -10,6 +10,7 @@ namespace AnimarsCatcher
         public ReactiveProperty<int> FoodSum = new();
         public ReactiveProperty<int> CrystalSum = new();
         public ReactiveProperty<int> BlueprintCount = new();
+        public ReactiveProperty<float> Distance = new();
 
         public bool HasSaveData()
         {
@@ -24,6 +25,7 @@ namespace AnimarsCatcher
             FoodSum.Value = PlayerPrefs.GetInt(nameof(FoodSum));
             CrystalSum.Value = PlayerPrefs.GetInt(nameof(CrystalSum));
             BlueprintCount.Value = PlayerPrefs.GetInt(nameof(BlueprintCount));
+            Distance.Value = PlayerPrefs.GetInt(nameof(Distance));
         }
 
         public void Save()
@@ -34,6 +36,7 @@ namespace AnimarsCatcher
             PlayerPrefs.SetInt(nameof(FoodSum), FoodSum.Value);
             PlayerPrefs.SetInt(nameof(CrystalSum), CrystalSum.Value);
             PlayerPrefs.SetInt(nameof(BlueprintCount), BlueprintCount.Value);
+            PlayerPrefs.SetFloat(nameof(Distance), Distance.Value);
         }
     }
 }

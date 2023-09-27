@@ -20,6 +20,17 @@ namespace AnimarsCatcher
                     Debug.Log("Overload of the Delicacies!");
                 }
             });
+
+            bool isTriggered = false;
+            gameModel.Distance.Subscribe(value =>
+            {
+                if (!isTriggered && value >= 1000f)
+                {
+                    isTriggered = true;
+                    UIAchievementManager.Instance.DisplayUI(AchievementType.Distance);
+                    TimerManager.Instance.AddTask(() => UIAchievementManager.Instance.HideUI(AchievementType.Distance), 5f);
+                }
+            });
         }
     }
 }

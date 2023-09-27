@@ -36,11 +36,17 @@ namespace AnimarsCatcher
         // Smoke
         public GameObject FXSmoke;
 
+        // Distance
+        private Vector3 mLastPosition;
+        private GameRoot mGameRoot;
+
         private void Awake()
         {
             mRigidbody = GetComponent<Rigidbody>();
             mCharacterController = GetComponent<CharacterController>();
             mMainCamera=Camera.main;
+            mLastPosition = transform.position;
+            mGameRoot = FindObjectOfType<GameRoot>();
         }
 
         // Update is called once per frame
@@ -86,6 +92,7 @@ namespace AnimarsCatcher
             mCharacterController.SimpleMove(speed);
 
             SetSmoke(speed);
+            CalculateDistance(h, v);
         }
 
         private void GetControlAnis()
@@ -216,6 +223,16 @@ namespace AnimarsCatcher
         public void SetAnimsCarrySpeed(float speed)
         {
             Const.CarrySpeed = speed;
+        }
+
+        private void CalculateDistance(float hor, float ver)
+        {
+            if (hor * hor + ver * ver > 0f)
+            {
+                float delta = Vector3.Distance(transform.position, mLastPosition);
+                mGameRoot.GameModel.Distance.Value += delta;
+                mLastPosition = transform.position;
+            }
         }
     }
 }
