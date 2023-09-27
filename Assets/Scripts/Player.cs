@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace AnimarsCatcher
 {
@@ -204,6 +205,17 @@ namespace AnimarsCatcher
         {
             FXSmoke.SetActive(speed.sqrMagnitude > 0f);
             FXSmoke.transform.forward = -speed;
+        }
+
+        public void SetAnisMoveSpeed(float speed)
+        {
+            mPickerAniList.ForEach(ani => ani.GetComponent<NavMeshAgent>().speed = speed);
+            mBlasterAniList.ForEach(ani => ani.GetComponent<NavMeshAgent>().speed = speed);
+        }
+
+        public void SetAnimsCarrySpeed(float speed)
+        {
+            Const.CarrySpeed = speed;
         }
     }
 }

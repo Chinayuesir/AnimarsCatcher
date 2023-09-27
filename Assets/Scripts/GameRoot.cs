@@ -131,7 +131,7 @@ namespace AnimarsCatcher
         {
             mTimer.AddTask(id =>
             {
-                Debug.Log($"Remaining Second:{seconds}");
+                //Debug.Log($"Remaining Second:{seconds}");
                 seconds -= 1;
                 if (seconds <= 0)
                 {

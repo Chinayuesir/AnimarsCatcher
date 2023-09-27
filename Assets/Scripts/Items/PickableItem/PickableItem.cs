@@ -17,12 +17,19 @@ namespace AnimarsCatcher
         Crystal
     }
 
+    public enum FoodType
+    {
+        Simple,
+        AddSpeed
+    }
+
     public class PickableItem : MonoBehaviour,ICanPick, IResource
     {
         [SerializeField]
         private int mResourceCount;
         public int ResourceCount => mResourceCount;
         public PickableItemType ItemType;
+        public FoodType FoodType;
 
         public List<Vector3> Positions = new List<Vector3>();
 
@@ -59,7 +66,7 @@ namespace AnimarsCatcher
             if (mTeamAgent.enabled)
             {
                 mTeamAgent.SetDestination(mHomeTransform.position);
-                mTeamAgent.speed = (float)CurrentAniCount / MaxAniCount * 2 * Const.BaseCarrySpeed;
+                mTeamAgent.speed = (float)CurrentAniCount / MaxAniCount * 2 * Const.CarrySpeed;
             }
 
             if (Vector3.Distance(transform.GetPositionOnTerrain(),mHomeTransform.position)
@@ -77,6 +84,14 @@ namespace AnimarsCatcher
                 {
                     case PickableItemType.Food:
                         FindObjectOfType<GameRoot>().GameModel.FoodSum.Value += mResourceCount;
+
+                        switch (FoodType)
+                        {
+                            case FoodType.AddSpeed:
+                                AddSpeedFood();
+                                break;
+                        }
+
                         break;
                     case PickableItemType.Crystal:
                         FindObjectOfType<GameRoot>().GameModel.CrystalSum.Value += mResourceCount;
@@ -86,6 +101,21 @@ namespace AnimarsCatcher
                 }
                 Destroy(gameObject);
             }
+        }
+
+        private void AddSpeedFood()
+        {
+            var player = FindObjectOfType<Player>();
+            if (player == null) return;
+            Debug.Log("Add Speed");
+            player.SetAnisMoveSpeed(Const.FastMoveSpeed);
+            player.SetAnimsCarrySpeed(Const.FastCarrySpeed);
+            TimerManager.Instance.AddTask(() =>
+            {
+                Debug.Log("Add Speed End");
+                player.SetAnisMoveSpeed(Const.BaseMoveSpeed);
+                player.SetAnimsCarrySpeed(Const.BaseCarrySpeed);
+            }, 10, 1);
         }
 
         public Vector3 GetPosition(PICKER_Ani ani)
