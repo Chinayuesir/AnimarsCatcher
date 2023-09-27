@@ -17,7 +17,8 @@ namespace AnimarsCatcher
         [SerializeField]
         private int mResourceCount;
         public int ResourceCount => mResourceCount;
-        public ReactiveProperty<int> HP = new ReactiveProperty<int>(100);
+        public int MaxHP = 100;
+        public ReactiveProperty<int> HP;
         public List<GameObject> PickableCrystal;
 
         private LayerMask mMask;
@@ -26,6 +27,8 @@ namespace AnimarsCatcher
 
         private void Awake()
         {
+            HP = new ReactiveProperty<int>(MaxHP);
+
             mMask = (1 << LayerMask.NameToLayer("Ani")) | (1 << LayerMask.NameToLayer("Player"));
             mMask = ~mMask;
             mSelfLayerMask = gameObject.layer;
@@ -37,8 +40,12 @@ namespace AnimarsCatcher
             {
                 if (hp <= 0)
                 {
-                    var go = Instantiate(PickableCrystal[Random.Range(0, PickableCrystal.Count)], transform.position, Quaternion.identity);
-                    go.transform.localScale = 3 * Vector3.one;
+                    for (int i = 0; i < mResourceCount; i++)
+                    {
+                        Vector3 pos = new Vector3(transform.position.x + Random.Range(-3f, 3f), transform.position.y, transform.position.z + Random.Range(-3f, 3f));
+                        var go = Instantiate(PickableCrystal[Random.Range(0, PickableCrystal.Count)], pos, Quaternion.identity);
+                        go.transform.localScale = 3 * Vector3.one;
+                    }
                     Destroy(gameObject);
                 }
             });
