@@ -17,6 +17,7 @@ namespace AnimarsCatcher
 
         private GameObject mPickerAniPrefab;
         private GameObject mBlasterAniPrefab;
+        private ReactiveProperty<int> mLevelTime;
 
         private Transform mHomeTrans;
         public Transform Anis;
@@ -36,6 +37,8 @@ namespace AnimarsCatcher
             mGameModel = new GameModel();
             mAchievementSystem = new AchievementSystem();
             mAchievementSystem.Init(mGameModel);
+            mLevelTime = new ReactiveProperty<int>(60);
+            UIManager.Instance.Init(mGameModel, mLevelTime);
 
             mPickerAniPrefab = Resources.Load<GameObject>(ResPath.PickerAniPath);
             mBlasterAniPrefab = Resources.Load<GameObject>(ResPath.BlasterAniPath);
@@ -55,6 +58,8 @@ namespace AnimarsCatcher
             else
             {
                 mGameModel.Day.Value = 1;
+                mGameModel.InTeamPickerAniCount.Value = 0;
+                mGameModel.InTeamBlasterAniCount.Value = 0;
                 LoadLevel(1);
             }
             GameModel.BlueprintCount.Subscribe(count =>
@@ -129,16 +134,16 @@ namespace AnimarsCatcher
 
         private void StartTimer(int seconds)
         {
+            mLevelTime.Value = seconds;
             mTimer.AddTask(id =>
             {
-                //Debug.Log($"Remaining Second:{seconds}");
-                seconds -= 1;
-                if (seconds <= 0)
+                mLevelTime.Value -= 1;
+                if (mLevelTime.Value <= 0)
                 {
                     LoadNextLeval();
                     mTimer.DeleteTask(id);
                 }
-            }, 1, seconds);
+            }, 1, mLevelTime.Value);
 
             mTimer.AddTask(id => 
             {

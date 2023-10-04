@@ -24,6 +24,7 @@ namespace AnimarsCatcher
         private LayerMask mMask;
 
         private LayerMask mSelfLayerMask;
+        private HPBar mHpBar;
 
         private void Awake()
         {
@@ -32,6 +33,8 @@ namespace AnimarsCatcher
             mMask = (1 << LayerMask.NameToLayer("Ani")) | (1 << LayerMask.NameToLayer("Player"));
             mMask = ~mMask;
             mSelfLayerMask = gameObject.layer;
+            mHpBar = transform.Find("HPCanvas/HPBarBg/HPBar").GetComponent<HPBar>();
+            mHpBar.Init(HP);
         }
 
         private void Start()

@@ -12,6 +12,10 @@ namespace AnimarsCatcher
         public ReactiveProperty<int> BlueprintCount = new();
         public ReactiveProperty<float> Distance = new();
 
+        public ReactiveProperty<int> InTeamPickerAniCount = new();
+        public ReactiveProperty<int> InTeamBlasterAniCount = new();
+
+
         public bool HasSaveData()
         {
             return PlayerPrefs.HasKey(nameof(Day));
@@ -26,6 +30,8 @@ namespace AnimarsCatcher
             CrystalSum.Value = PlayerPrefs.GetInt(nameof(CrystalSum));
             BlueprintCount.Value = PlayerPrefs.GetInt(nameof(BlueprintCount));
             Distance.Value = PlayerPrefs.GetInt(nameof(Distance));
+            InTeamPickerAniCount.Value = 0;
+            InTeamBlasterAniCount.Value = 0;
         }
 
         public void Save()
