@@ -18,6 +18,7 @@ namespace AnimarsCatcher
             {
                 FindObjectOfType<GameRoot>().GameModel.BlueprintCount.Value++;
                 Destroy(gameObject);
+                UIBlueprintManager.Instance.RemovePointer(transform);
             }
         }
     }

@@ -166,6 +166,7 @@ namespace AnimarsCatcher
                 {
                     child.gameObject.SetActive(true);
                     child.gameObject.AddComponent<Blueprint>();
+                    UIBlueprintManager.Instance.AddPointer(child.transform);
                 }
             }
         }
