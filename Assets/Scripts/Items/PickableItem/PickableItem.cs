@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -34,12 +35,13 @@ namespace AnimarsCatcher
         public List<Vector3> Positions = new List<Vector3>();
 
         public int MaxAniCount=2;
-        public int CurrentAniCount=0;
+        public ReactiveProperty<int> CurrentAniCount = new(0);
         private List<PICKER_Ani> mAnis;
         private NavMeshAgent mTeamAgent;
         private Transform mHomeTransform;
 
         private LayerMask mLayerMask;
+        private TextMeshProUGUI mText_CurrentAniCount;
 
         private void Awake()
         {
@@ -49,6 +51,14 @@ namespace AnimarsCatcher
             mHomeTransform = GameObject.FindWithTag("Home").transform;
 
             mLayerMask = gameObject.layer;
+
+            transform.Find("PickerCanvas/MaxAniCount").GetComponent<TextMeshProUGUI>().text = MaxAniCount.ToString();
+            mText_CurrentAniCount = transform.Find("PickerCanvas/CurrentAniCount").GetComponent<TextMeshProUGUI>();
+            mText_CurrentAniCount.text = CurrentAniCount.Value.ToString();
+            CurrentAniCount.Subscribe(count =>
+            {
+                mText_CurrentAniCount.text = count.ToString();
+            });
         }
 
         private void Update()
@@ -66,7 +76,7 @@ namespace AnimarsCatcher
             if (mTeamAgent.enabled)
             {
                 mTeamAgent.SetDestination(mHomeTransform.position);
-                mTeamAgent.speed = (float)CurrentAniCount / MaxAniCount * 2 * Const.CarrySpeed;
+                mTeamAgent.speed = (float)CurrentAniCount.Value / MaxAniCount * 2 * Const.CarrySpeed;
             }
 
             if (Vector3.Distance(transform.GetPositionOnTerrain(),mHomeTransform.position)
@@ -125,12 +135,12 @@ namespace AnimarsCatcher
 
         public bool CheckCanPick()
         {
-            return CurrentAniCount < MaxAniCount;
+            return CurrentAniCount.Value < MaxAniCount;
         }
 
         public bool CheckCanCarry()
         {
-            if (CurrentAniCount > 0 && CurrentAniCount >= MaxAniCount/2)
+            if (CurrentAniCount.Value > 0 && CurrentAniCount.Value >= MaxAniCount/2)
             {
                 foreach (var ani in mAnis)
                 {
@@ -144,7 +154,7 @@ namespace AnimarsCatcher
         public void AddPickerAni(PICKER_Ani pickerAni)
         {
             mAnis.Add(pickerAni);
-            CurrentAniCount++;
+            CurrentAniCount.Value++;
         }
 
         private void OnMouseEnter()
