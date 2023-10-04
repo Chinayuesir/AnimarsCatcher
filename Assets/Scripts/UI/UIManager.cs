@@ -24,6 +24,7 @@ namespace AnimarsCatcher
         public TextMeshProUGUI Text_Crystal;
         public TextMeshProUGUI Text_InTeamAniCount;
         public TextMeshProUGUI Text_OnGroundAniCount;
+        public TextMeshProUGUI Text_Blueprint;
         
         //Button
         public Button RobotIcon;
@@ -58,6 +59,8 @@ namespace AnimarsCatcher
             Text_LevelTime.text = levelTime.Value.ToString();
             Text_InTeamAniCount.text = gameModel.InTeamPickerAniCount.Value.ToString();
             Text_OnGroundAniCount.text = (gameModel.PickerAniCount.Value - gameModel.InTeamPickerAniCount.Value).ToString();
+            Text_Blueprint.text = gameModel.BlueprintCount.Value.ToString();
+
             levelTime.Subscribe(time =>
             {
                 Text_LevelTime.text = time.ToString();
@@ -107,6 +110,10 @@ namespace AnimarsCatcher
             mGameModel.CrystalSum.Subscribe(count =>
             {
                 Text_Food.text = count.ToString();
+            });
+            mGameModel.BlueprintCount.Subscribe(count =>
+            {
+                Text_Blueprint.text = count.ToString();
             });
             mGameModel.InTeamPickerAniCount.Subscribe(count =>
             {
