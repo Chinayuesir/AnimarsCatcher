@@ -140,7 +140,8 @@ namespace AnimarsCatcher
                 mLevelTime.Value -= 1;
                 if (mLevelTime.Value <= 0)
                 {
-                    LoadNextLeval();
+                    //LoadNextLeval();
+                    UIManager.Instance.OpenResourcePanel();
                     mTimer.DeleteTask(id);
                 }
             }, 1, mLevelTime.Value);
@@ -194,9 +195,14 @@ namespace AnimarsCatcher
             }
         }
 
-        private void OnApplicationQuit()
+        public bool TryLoadNextLevel(int deltaPickerAniCount, int deltaBlasterAniCount)
         {
-            
+            int day = mGameModel.Day.Value + 1;
+            if (day > mInfo.LevelDatas.Count) return false;
+            mInfo.LevelDatas[day - 1].PickerAniCount += deltaPickerAniCount;
+            mInfo.LevelDatas[day - 1].BlasterAniCount += deltaBlasterAniCount;
+            LoadNextLeval();
+            return true;
         }
     }
 }

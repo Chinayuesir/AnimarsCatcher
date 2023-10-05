@@ -25,6 +25,8 @@ namespace AnimarsCatcher
         public TextMeshProUGUI Text_InTeamAniCount;
         public TextMeshProUGUI Text_OnGroundAniCount;
         public TextMeshProUGUI Text_Blueprint;
+        public TextMeshProUGUI Text_AddPickerAniCount;
+        public TextMeshProUGUI Text_AddBlasterAniCount;
         
         //Button
         public Button RobotIcon;
@@ -32,14 +34,23 @@ namespace AnimarsCatcher
         public Button Button_QuitGame;
         public Button PickerAniIcon;
         public Button BlasterAniIcon;
+        public Button Button_PickerAni_Add;
+        public Button Button_PickerAni_Remove;
+        public Button Button_BlasterAni_Add;
+        public Button Button_BlasterAni_Remove;
+        public Button Button_StartNextDay;
         
         //Panel
         public GameObject MenuPanel;
+        public GameObject ResourcePanel;
 
         private Vector3 mBigIconPos;
         private Vector3 mSmallIconPos;
         private Vector2 mBigIconSizeDelta;
         private Vector2 mSmallIconSizeDelta;
+
+        private int mPickerAniDeltaCount;
+        private int mBlasterAniDeltaCount;
 
         private void Awake()
         {
@@ -94,6 +105,41 @@ namespace AnimarsCatcher
             BlasterAniIcon.onClick.AddListener(() =>
             {
                 AniIconBtnClick(BlasterAniIcon, PickerAniIcon);
+            });
+
+            Button_PickerAni_Add.onClick.AddListener(() =>
+            {
+                mPickerAniDeltaCount++;
+                Text_AddPickerAniCount.text = mPickerAniDeltaCount.ToString();
+            });
+            Button_PickerAni_Remove.onClick.AddListener(() =>
+            {
+                mPickerAniDeltaCount--;
+                mPickerAniDeltaCount = mPickerAniDeltaCount >= 0 ? mPickerAniDeltaCount : 0;
+                Text_AddPickerAniCount.text = mPickerAniDeltaCount.ToString();
+            });
+            Button_BlasterAni_Add.onClick.AddListener(() =>
+            {
+                mBlasterAniDeltaCount++;
+                Text_AddBlasterAniCount.text = mBlasterAniDeltaCount.ToString();
+            });
+            Button_BlasterAni_Remove.onClick.AddListener(() =>
+            {
+                mBlasterAniDeltaCount--;
+                mBlasterAniDeltaCount = mBlasterAniDeltaCount >= 0 ? mBlasterAniDeltaCount : 0;
+                Text_AddBlasterAniCount.text = mBlasterAniDeltaCount.ToString();
+            });
+            Button_StartNextDay.onClick.AddListener(() =>
+            {
+                int foodSum = gameModel.FoodSum.Value;
+                int crystalSum = gameModel.CrystalSum.Value;
+                int foodNeed = 2 * (mPickerAniDeltaCount + mBlasterAniDeltaCount);
+                int crystalNeed = mBlasterAniDeltaCount;
+                if (foodNeed > foodSum || crystalNeed > crystalSum) return;
+                gameModel.FoodSum.Value -= foodNeed;
+                gameModel.CrystalSum.Value -= crystalNeed;
+                FindObjectOfType<GameRoot>().TryLoadNextLevel(mPickerAniDeltaCount, mBlasterAniDeltaCount);
+                ResourcePanel.SetActive(false);
             });
         }
 
@@ -163,6 +209,11 @@ namespace AnimarsCatcher
             button2.GetComponent<RectTransform>().DOMove(mBigIconPos, 0.3f);
             button2.GetComponent<RectTransform>().DOSizeDelta(mBigIconSizeDelta, 0.3f);
             button2.enabled = true;
+        }
+
+        public void OpenResourcePanel()
+        {
+            ResourcePanel.SetActive(true);
         }
     }
 }
