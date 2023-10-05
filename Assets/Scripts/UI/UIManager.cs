@@ -80,6 +80,8 @@ namespace AnimarsCatcher
             RobotIcon.onClick.AddListener(() =>
             {
                 MenuPanel.SetActive(true);
+                MenuPanel.transform.localScale = Vector3.one * 0.1f;
+                MenuPanel.transform.DOScale(1f, 1f).SetUpdate(true);
                 Time.timeScale = 0;
             });
 
