@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -39,8 +40,13 @@ namespace AnimarsCatcher
         private List<PICKER_Ani> mAnis;
         private NavMeshAgent mTeamAgent;
         private Transform mHomeTransform;
+        private Transform mPickedTrans;
 
         private LayerMask mLayerMask;
+
+        private bool mIsPicked = false;
+        private AudioSource mPickedAudioSource;
+
         private TextMeshProUGUI mText_CurrentAniCount;
 
         private void Awake()
@@ -49,8 +55,10 @@ namespace AnimarsCatcher
             mTeamAgent = GetComponent<NavMeshAgent>();
             mTeamAgent.enabled = false;
             mHomeTransform = GameObject.FindWithTag("Home").transform;
+            mPickedTrans = mHomeTransform.Find("PickedPos").transform;
 
             mLayerMask = gameObject.layer;
+            mPickedAudioSource = GetComponent<AudioSource>();
 
             transform.Find("PickerCanvas/MaxAniCount").GetComponent<TextMeshProUGUI>().text = MaxAniCount.ToString();
             mText_CurrentAniCount = transform.Find("PickerCanvas/CurrentAniCount").GetComponent<TextMeshProUGUI>();
@@ -80,8 +88,9 @@ namespace AnimarsCatcher
             }
 
             if (Vector3.Distance(transform.GetPositionOnTerrain(),mHomeTransform.position)
-                < mTeamAgent.stoppingDistance)
+                < mTeamAgent.stoppingDistance && !mIsPicked)
             {
+                mIsPicked = true;
                 foreach (var ani in mAnis)
                 {
                     ani.ReadyToCarry = false;
@@ -109,7 +118,13 @@ namespace AnimarsCatcher
                     default:
                         break;
                 }
-                Destroy(gameObject);
+
+                if (!mPickedAudioSource.isPlaying) mPickedAudioSource.Play();
+                transform.DOMove(mPickedTrans.position, 2f);
+                transform.DOScale(Vector3.zero, 2f).OnComplete(() =>
+                {
+                    Destroy(gameObject);
+                });
             }
         }
 

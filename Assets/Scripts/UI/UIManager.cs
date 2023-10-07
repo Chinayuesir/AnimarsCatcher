@@ -79,6 +79,8 @@ namespace AnimarsCatcher
 
             RobotIcon.onClick.AddListener(() =>
             {
+                AudioManager.Instance.PlayMenuBtnAudio();
+                AudioManager.Instance.EnterMenu();
                 MenuPanel.SetActive(true);
                 MenuPanel.transform.localScale = Vector3.one * 0.1f;
                 MenuPanel.transform.DOScale(1f, 1f).SetUpdate(true);
@@ -87,12 +89,15 @@ namespace AnimarsCatcher
 
             Button_ReturnGame.onClick.AddListener(() =>
             {
+                AudioManager.Instance.PlayMenuBtnAudio();
+                AudioManager.Instance.ExitMenu();
                 MenuPanel.SetActive(false);
                 Time.timeScale = 1;
             });
 
             Button_QuitGame.onClick.AddListener(() =>
             {
+                AudioManager.Instance.PlayMenuBtnAudio();
                 Debug.Log("Quit Game");
             });
 
@@ -157,7 +162,7 @@ namespace AnimarsCatcher
             });
             mGameModel.CrystalSum.Subscribe(count =>
             {
-                Text_Food.text = count.ToString();
+                Text_Crystal.text = count.ToString();
             });
             mGameModel.BlueprintCount.Subscribe(count =>
             {
@@ -191,6 +196,7 @@ namespace AnimarsCatcher
 
         private void AniIconBtnClick(Button button1, Button button2)
         {
+            AudioManager.Instance.PlaySwitchBtnAudio();
             switch (mAniInfoType)
             {
                 case AniInfoType.Picker:

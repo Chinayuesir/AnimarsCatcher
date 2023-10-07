@@ -36,12 +36,16 @@ namespace AnimarsCatcher
 
         public Transform GunTrans;
 
+        //Audio
+        private AudioSource mLaserAudioSource;
+
         // Group Behaviours
         public Vector3 Destination;
 
         private void Awake()
         {
             mAnimator = GetComponent<Animator>();
+            mLaserAudioSource = GetComponent<AudioSource>();
         }
 
         private void Start()
@@ -68,6 +72,7 @@ namespace AnimarsCatcher
                 var go = PoolManager.Instance.BeamPool.Get();
                 go.transform.position = GunTrans.position;
                 go.transform.rotation = dir;
+                if (!mLaserAudioSource.isPlaying) mLaserAudioSource.Play();
             }
         }
 
