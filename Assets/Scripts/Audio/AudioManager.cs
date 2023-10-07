@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -11,6 +9,8 @@ namespace AnimarsCatcher
 
         public AudioMixer AudioMixer;
         private AudioSource mAudioSource;
+
+        public AudioSource BGM;
 
         public AudioClip MenuBtnClick;
         public AudioClip SwitchBtnClick;
@@ -34,11 +34,13 @@ namespace AnimarsCatcher
         public void EnterMenu()
         {
             AudioMixer.SetFloat("GameVolume", -20f);
+            BGM.Pause();
         }
 
         public void ExitMenu()
         {
             AudioMixer.SetFloat("GameVolume", -0f);
+            BGM.UnPause();
         }
     }
 }
