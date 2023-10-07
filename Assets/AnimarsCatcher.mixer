@@ -91,8 +91,16 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
+  - guid: fabb6e0e58fac1f4d83a6cbbc06ee6c1
+    name: BGVolume
+  - guid: 6c642affc051849478aeae25dd059dd6
+    name: EffectVolume
   - guid: 8c5e7495336d6fd49a775fc650edfadb
     name: GameVolume
+  - guid: b87ef43f66ece7746b1df28c729e305a
+    name: GlobalVolume
+  - guid: b29a318c140bed6438c8e17595300fc5
+    name: UIVolume
   m_AudioMixerGroupViews:
   - guids:
     - a84b8a080e1b3ae42aa873364e5c6108

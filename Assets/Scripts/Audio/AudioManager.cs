@@ -42,5 +42,17 @@ namespace AnimarsCatcher
             AudioMixer.SetFloat("GameVolume", -0f);
             BGM.UnPause();
         }
+
+        #region Volume
+        public void SetVolume(string name, float volume)
+        {
+            AudioMixer.SetFloat(name, volume);
+        }
+        public float GetVolume(string name)
+        {
+            AudioMixer.GetFloat(name, out float value);
+            return value;
+        }
+        #endregion
     }
 }

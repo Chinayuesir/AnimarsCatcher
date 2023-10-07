@@ -39,10 +39,19 @@ namespace AnimarsCatcher
         public Button Button_BlasterAni_Add;
         public Button Button_BlasterAni_Remove;
         public Button Button_StartNextDay;
+        public Button Button_Volume;
+        public Button Button_CloseVolumePanel;
         
         //Panel
         public GameObject MenuPanel;
         public GameObject ResourcePanel;
+        public GameObject VolumePanel;
+
+        //Slider
+        public Slider Slider_GlobalVolume;
+        public Slider Slider_UIVolume;
+        public Slider Slider_BGVolume;
+        public Slider Slider_EffectVolume;
 
         private Vector3 mBigIconPos;
         private Vector3 mSmallIconPos;
@@ -71,6 +80,11 @@ namespace AnimarsCatcher
             Text_InTeamAniCount.text = gameModel.InTeamPickerAniCount.Value.ToString();
             Text_OnGroundAniCount.text = (gameModel.PickerAniCount.Value - gameModel.InTeamPickerAniCount.Value).ToString();
             Text_Blueprint.text = gameModel.BlueprintCount.Value.ToString();
+
+            Slider_GlobalVolume.value = AudioManager.Instance.GetVolume("GlobalVolume");
+            Slider_UIVolume.value = AudioManager.Instance.GetVolume("UIVolume");
+            Slider_BGVolume.value = AudioManager.Instance.GetVolume("BGVolume");
+            Slider_EffectVolume.value = AudioManager.Instance.GetVolume("EffectVolume");
 
             levelTime.Subscribe(time =>
             {
@@ -147,6 +161,32 @@ namespace AnimarsCatcher
                 gameModel.CrystalSum.Value -= crystalNeed;
                 FindObjectOfType<GameRoot>().TryLoadNextLevel(mPickerAniDeltaCount, mBlasterAniDeltaCount);
                 ResourcePanel.SetActive(false);
+            });
+
+            Button_Volume.onClick.AddListener(() =>
+            {
+                VolumePanel.SetActive(true);
+            });
+            Button_CloseVolumePanel.onClick.AddListener(() =>
+            {
+                VolumePanel.SetActive(false);
+            });
+
+            Slider_GlobalVolume.onValueChanged.AddListener(value =>
+            {
+                AudioManager.Instance.SetVolume("GlobalVolume", value);
+            });
+            Slider_UIVolume.onValueChanged.AddListener(value =>
+            {
+                AudioManager.Instance.SetVolume("UIVolume", value);
+            });
+            Slider_BGVolume.onValueChanged.AddListener(value =>
+            {
+                AudioManager.Instance.SetVolume("BGVolume", value);
+            });
+            Slider_EffectVolume.onValueChanged.AddListener(value =>
+            {
+                AudioManager.Instance.SetVolume("EffectVolume", value);
             });
         }
 
