@@ -14,6 +14,7 @@ namespace AnimarsCatcher
 
         public AudioClip MenuBtnClick;
         public AudioClip SwitchBtnClick;
+        public AudioClip UIBtnClick;
 
         private void Awake()
         {
@@ -29,6 +30,11 @@ namespace AnimarsCatcher
         public void PlaySwitchBtnAudio()
         {
             mAudioSource.PlayOneShot(SwitchBtnClick);
+        }
+
+        public void PlayUIBtnAudio()
+        {
+            mAudioSource.PlayOneShot(UIBtnClick);
         }
 
         public void EnterMenu()

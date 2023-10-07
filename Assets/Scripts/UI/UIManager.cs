@@ -130,28 +130,33 @@ namespace AnimarsCatcher
 
             Button_PickerAni_Add.onClick.AddListener(() =>
             {
+                AudioManager.Instance.PlayUIBtnAudio();
                 mPickerAniDeltaCount++;
                 Text_AddPickerAniCount.text = mPickerAniDeltaCount.ToString();
             });
             Button_PickerAni_Remove.onClick.AddListener(() =>
             {
+                AudioManager.Instance.PlayUIBtnAudio();
                 mPickerAniDeltaCount--;
                 mPickerAniDeltaCount = mPickerAniDeltaCount >= 0 ? mPickerAniDeltaCount : 0;
                 Text_AddPickerAniCount.text = mPickerAniDeltaCount.ToString();
             });
             Button_BlasterAni_Add.onClick.AddListener(() =>
             {
+                AudioManager.Instance.PlayUIBtnAudio();
                 mBlasterAniDeltaCount++;
                 Text_AddBlasterAniCount.text = mBlasterAniDeltaCount.ToString();
             });
             Button_BlasterAni_Remove.onClick.AddListener(() =>
             {
+                AudioManager.Instance.PlayUIBtnAudio();
                 mBlasterAniDeltaCount--;
                 mBlasterAniDeltaCount = mBlasterAniDeltaCount >= 0 ? mBlasterAniDeltaCount : 0;
                 Text_AddBlasterAniCount.text = mBlasterAniDeltaCount.ToString();
             });
             Button_StartNextDay.onClick.AddListener(() =>
             {
+                AudioManager.Instance.PlayUIBtnAudio();
                 int foodSum = gameModel.FoodSum.Value;
                 int crystalSum = gameModel.CrystalSum.Value;
                 int foodNeed = 2 * (mPickerAniDeltaCount + mBlasterAniDeltaCount);
@@ -165,10 +170,12 @@ namespace AnimarsCatcher
 
             Button_Volume.onClick.AddListener(() =>
             {
+                AudioManager.Instance.PlayUIBtnAudio();
                 VolumePanel.SetActive(true);
             });
             Button_CloseVolumePanel.onClick.AddListener(() =>
             {
+                AudioManager.Instance.PlayUIBtnAudio();
                 VolumePanel.SetActive(false);
             });
 
