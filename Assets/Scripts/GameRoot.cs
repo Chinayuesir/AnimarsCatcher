@@ -24,11 +24,13 @@ namespace AnimarsCatcher
         public Animator EnvironmentAnimator;
         public Transform BluePrints;
 
+#if UNITY_EDITOR
         [MenuItem("Tools/Clear Save Data")]
         public static void ClearSaveData()
         {
             PlayerPrefs.DeleteAll();
         }
+#endif
 
         private void Awake()
         {

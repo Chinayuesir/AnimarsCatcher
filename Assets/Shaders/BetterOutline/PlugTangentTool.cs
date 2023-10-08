@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlugTangentTool
 {
+#if UNITY_EDITOR
     [MenuItem("Tools/WriteAverageNormalToTangent")]
     public static void WriteAverageNormalToTangentToos()
     {
@@ -50,4 +51,5 @@ public class PlugTangentTool
         }
         mesh.tangents = tangents;
     }
+#endif
 }
